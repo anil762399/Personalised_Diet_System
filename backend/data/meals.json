@@ -1,0 +1,770 @@
+{
+  "meal_templates": {
+    "traditional_meals": {
+      "summer_meals": {
+        "breakfast": [
+          {
+            "name": "Ragi Porridge with Buttermilk",
+            "food_style": "traditional",
+            "season": "summer",
+            "dietary_type": "vegetarian",
+            "cooling_effect": true,
+            "ingredients": {
+              "ragi": {
+                "quantity": "30g",
+                "serving": "2 tablespoons flour"
+              },
+              "buttermilk": {
+                "quantity": "200ml",
+                "serving": "1 glass"
+              },
+              "jaggery": {
+                "quantity": "10g",
+                "serving": "1 teaspoon"
+              }
+            },
+            "total_nutrition": {
+              "calories": 180,
+              "protein": 6.2,
+              "carbs": 28.5,
+              "fat": 2.8,
+              "fiber": 3.1,
+              "calcium": 215,
+              "iron": 2.8,
+              "magnesium": 85
+            },
+            "preparation_method": "Mix ragi flour with water, cook for 5 minutes. Cool and mix with buttermilk. Add jaggery.",
+            "preparation_time": "15 minutes",
+            "storage": "Consume fresh. Can be refrigerated for 4-6 hours.",
+            "health_benefits": ["cooling", "calcium_rich", "easy_digestion"]
+          },
+          {
+            "name": "Foxtail Millet Upma",
+            "food_style": "traditional",
+            "season": "summer",
+            "dietary_type": "vegetarian",
+            "ingredients": {
+              "foxtail_millet": {
+                "quantity": "50g",
+                "serving": "1/4 cup dry"
+              },
+              "vegetables": {
+                "quantity": "100g",
+                "serving": "1/2 cup mixed"
+              },
+              "oil": {
+                "quantity": "5ml",
+                "serving": "1 teaspoon"
+              }
+            },
+            "total_nutrition": {
+              "calories": 220,
+              "protein": 7.8,
+              "carbs": 35.2,
+              "fat": 4.8,
+              "fiber": 5.2,
+              "magnesium": 65,
+              "phosphorus": 180
+            },
+            "preparation_method": "Dry roast millet, cook with water and vegetables. Season with spices.",
+            "preparation_time": "25 minutes",
+            "storage": "Best consumed fresh. Refrigerate for 1 day.",
+            "health_benefits": ["low_glycemic", "fiber_rich", "cooling"]
+          }
+        ],
+        "lunch": [
+          {
+            "name": "Curd Rice with Cucumber",
+            "food_style": "traditional",
+            "season": "summer",
+            "dietary_type": "vegetarian",
+            "cooling_effect": true,
+            "ingredients": {
+              "rice_cooked": {
+                "quantity": "150g",
+                "serving": "1 bowl"
+              },
+              "curd": {
+                "quantity": "100g",
+                "serving": "1/2 cup"
+              },
+              "cucumber": {
+                "quantity": "50g",
+                "serving": "1/2 medium"
+              },
+              "curry_leaves": {
+                "quantity": "5g",
+                "serving": "few leaves"
+              }
+            },
+            "total_nutrition": {
+              "calories": 285,
+              "protein": 8.5,
+              "carbs": 48.2,
+              "fat": 5.8,
+              "calcium": 180,
+              "probiotics": "high"
+            },
+            "preparation_method": "Mix cooked rice with curd, add chopped cucumber and seasoning.",
+            "preparation_time": "10 minutes",
+            "storage": "Consume within 2-3 hours. Keep refrigerated.",
+            "health_benefits": ["cooling", "probiotics", "hydrating", "easy_digestion"]
+          },
+          {
+            "name": "Jowar Roti with Dal and Salad",
+            "food_style": "traditional",
+            "season": "summer",
+            "dietary_type": "vegetarian",
+            "ingredients": {
+              "jowar_flour": {
+                "quantity": "50g",
+                "serving": "2 medium rotis"
+              },
+              "moong_dal_cooked": {
+                "quantity": "100g",
+                "serving": "1/2 bowl"
+              },
+              "mixed_salad": {
+                "quantity": "100g",
+                "serving": "1 bowl"
+              }
+            },
+            "total_nutrition": {
+              "calories": 420,
+              "protein": 18.5,
+              "carbs": 65.8,
+              "fat": 6.2,
+              "fiber": 12.8,
+              "iron": 8.5,
+              "folate": 285
+            },
+            "preparation_method": "Make jowar rotis, serve with cooked dal and fresh salad.",
+            "preparation_time": "30 minutes",
+            "storage": "Rotis: 1 day covered. Dal: 2 days refrigerated.",
+            "health_benefits": ["high_fiber", "protein_rich", "cooling"]
+          }
+        ],
+        "dinner": [
+          {
+            "name": "Little Millet Khichdi",
+            "food_style": "traditional",
+            "season": "summer",
+            "dietary_type": "vegetarian",
+            "light_dinner": true,
+            "ingredients": {
+              "little_millet": {
+                "quantity": "40g",
+                "serving": "1/4 cup dry"
+              },
+              "moong_dal": {
+                "quantity": "20g",
+                "serving": "1 tablespoon dry"
+              },
+              "vegetables": {
+                "quantity": "80g",
+                "serving": "1/2 cup"
+              },
+              "ghee": {
+                "quantity": "5g",
+                "serving": "1 teaspoon"
+              }
+            },
+            "total_nutrition": {
+              "calories": 265,
+              "protein": 9.8,
+              "carbs": 42.5,
+              "fat": 6.2,
+              "fiber": 6.8,
+              "magnesium": 95
+            },
+            "preparation_method": "Cook millet and dal together with vegetables and spices.",
+            "preparation_time": "25 minutes",
+            "storage": "Best fresh. Refrigerate for 1 day.",
+            "health_benefits": ["easy_digestion", "light", "nutritious"]
+          }
+        ]
+      },
+      "monsoon_meals": {
+        "breakfast": [
+          {
+            "name": "Bajra Roti with Jaggery and Ghee",
+            "food_style": "traditional",
+            "season": "monsoon",
+            "dietary_type": "vegetarian",
+            "warming_effect": true,
+            "ingredients": {
+              "bajra_flour": {
+                "quantity": "50g",
+                "serving": "2 medium rotis"
+              },
+              "jaggery": {
+                "quantity": "15g",
+                "serving": "1 tablespoon"
+              },
+              "ghee": {
+                "quantity": "8g",
+                "serving": "1.5 teaspoons"
+              }
+            },
+            "total_nutrition": {
+              "calories": 320,
+              "protein": 8.2,
+              "carbs": 52.8,
+              "fat": 9.8,
+              "fiber": 8.2,
+              "iron": 7.8,
+              "zinc": 2.2
+            },
+            "preparation_method": "Make bajra rotis with warm water. Serve with jaggery and ghee.",
+            "preparation_time": "20 minutes",
+            "storage": "Rotis: 1 day covered. Best consumed warm.",
+            "health_benefits": ["warming", "iron_rich", "energy_giving"]
+          },
+          {
+            "name": "Kodo Millet Porridge",
+            "food_style": "traditional",
+            "season": "monsoon",
+            "dietary_type": "vegetarian",
+            "ingredients": {
+              "kodo_millet": {
+                "quantity": "40g",
+                "serving": "1/4 cup dry"
+              },
+              "milk": {
+                "quantity": "200ml",
+                "serving": "1 glass"
+              },
+              "jaggery": {
+                "quantity": "12g",
+                "serving": "1 tablespoon"
+              }
+            },
+            "total_nutrition": {
+              "calories": 285,
+              "protein": 12.5,
+              "carbs": 48.2,
+              "fat": 6.8,
+              "calcium": 265,
+              "antioxidants": "high"
+            },
+            "preparation_method": "Cook kodo millet in milk until soft. Add jaggery and simmer.",
+            "preparation_time": "25 minutes",
+            "storage": "Consume fresh. Can be refrigerated for 6 hours.",
+            "health_benefits": ["antioxidants", "warming", "calcium_rich"]
+          }
+        ],
+        "lunch": [
+          {
+            "name": "Barnyard Millet Khichdi with Ghee",
+            "food_style": "traditional",
+            "season": "monsoon",
+            "dietary_type": "vegetarian",
+            "immunity_boosting": true,
+            "ingredients": {
+              "barnyard_millet": {
+                "quantity": "50g",
+                "serving": "1/4 cup dry"
+              },
+              "toor_dal": {
+                "quantity": "30g",
+                "serving": "2 tablespoons dry"
+              },
+              "seasonal_vegetables": {
+                "quantity": "100g",
+                "serving": "1/2 cup"
+              },
+              "ghee": {
+                "quantity": "8g",
+                "serving": "1.5 teaspoons"
+              }
+            },
+            "total_nutrition": {
+              "calories": 380,
+              "protein": 16.8,
+              "carbs": 55.2,
+              "fat": 10.5,
+              "fiber": 18.2,
+              "iron": 12.8,
+              "zinc": 4.2
+            },
+            "preparation_method": "Cook millet and dal with vegetables, turmeric, and spices. Finish with ghee.",
+            "preparation_time": "30 minutes",
+            "storage": "Best fresh. Refrigerate for 1 day.",
+            "health_benefits": ["immunity_boost", "high_fiber", "iron_rich"]
+          }
+        ],
+        "dinner": [
+          {
+            "name": "Ragi Mudde with Sambar",
+            "food_style": "traditional",
+            "season": "monsoon",
+            "dietary_type": "vegetarian",
+            "ingredients": {
+              "ragi_flour": {
+                "quantity": "40g",
+                "serving": "2 balls"
+              },
+              "toor_dal_sambar": {
+                "quantity": "150ml",
+                "serving": "1 bowl"
+              },
+              "vegetables_in_sambar": {
+                "quantity": "80g",
+                "serving": "mixed"
+              }
+            },
+            "total_nutrition": {
+              "calories": 285,
+              "protein": 12.5,
+              "carbs": 48.8,
+              "fat": 4.2,
+              "calcium": 185,
+              "iron": 6.8
+            },
+            "preparation_method": "Cook ragi flour with water to make balls. Serve with vegetable sambar.",
+            "preparation_time": "25 minutes",
+            "storage": "Consume fresh. Sambar can be refrigerated for 2 days.",
+            "health_benefits": ["calcium_rich", "warming", "traditional_comfort"]
+          }
+        ]
+      },
+      "winter_meals": {
+        "breakfast": [
+          {
+            "name": "Bajra Kheer with Dry Fruits",
+            "food_style": "traditional",
+            "season": "winter",
+            "dietary_type": "vegetarian",
+            "warming_effect": true,
+            "ingredients": {
+              "bajra_flour": {
+                "quantity": "30g",
+                "serving": "2 tablespoons"
+              },
+              "milk": {
+                "quantity": "250ml",
+                "serving": "1 glass"
+              },
+              "jaggery": {
+                "quantity": "20g",
+                "serving": "1.5 tablespoons"
+              },
+              "almonds": {
+                "quantity": "10g",
+                "serving": "6-8 pieces"
+              }
+            },
+            "total_nutrition": {
+              "calories": 385,
+              "protein": 15.2,
+              "carbs": 52.8,
+              "fat": 12.8,
+              "calcium": 355,
+              "iron": 8.5,
+              "vitamin_e": 3.2
+            },
+            "preparation_method": "Cook bajra flour in milk, add jaggery and chopped almonds.",
+            "preparation_time": "20 minutes",
+            "storage": "Best consumed warm. Can be refrigerated for 4-6 hours.",
+            "health_benefits": ["warming", "calcium_rich", "energy_dense"]
+          }
+        ],
+        "lunch": [
+          {
+            "name": "Jowar Bhakri with Winter Vegetables",
+            "food_style": "traditional",
+            "season": "winter",
+            "dietary_type": "vegetarian",
+            "ingredients": {
+              "jowar_flour": {
+                "quantity": "60g",
+                "serving": "2 thick bhakris"
+              },
+              "winter_vegetable_curry": {
+                "quantity": "150g",
+                "serving": "1 bowl"
+              },
+              "ghee": {
+                "quantity": "8g",
+                "serving": "1.5 teaspoons"
+              }
+            },
+            "total_nutrition": {
+              "calories": 425,
+              "protein": 14.8,
+              "carbs": 68.5,
+              "fat": 11.2,
+              "fiber": 14.2,
+              "iron": 9.8
+            },
+            "preparation_method": "Make thick jowar bhakris, serve with spiced winter vegetable curry.",
+            "preparation_time": "35 minutes",
+            "storage": "Bhakris: 1 day. Curry: 2 days refrigerated.",
+            "health_benefits": ["warming", "fiber_rich", "seasonal_vegetables"]
+          }
+        ]
+      }
+    },
+    "modern_meals": {
+      "summer_meals": {
+        "breakfast": [
+          {
+            "name": "Quinoa Berry Bowl",
+            "food_style": "modern",
+            "season": "summer",
+            "dietary_type": "vegetarian",
+            "cooling_effect": true,
+            "ingredients": {
+              "quinoa_cooked": {
+                "quantity": "80g",
+                "serving": "1/2 cup"
+              },
+              "mixed_berries": {
+                "quantity": "100g",
+                "serving": "1 cup"
+              },
+              "greek_yogurt": {
+                "quantity": "100g",
+                "serving": "1/2 cup"
+              },
+              "chia_seeds": {
+                "quantity": "10g",
+                "serving": "1 tablespoon"
+              }
+            },
+            "total_nutrition": {
+              "calories": 320,
+              "protein": 18.5,
+              "carbs": 42.8,
+              "fat": 8.9,
+              "fiber": 8.5,
+              "calcium": 285,
+              "antioxidants": "very_high"
+            },
+            "preparation_method": "Layer cooked quinoa, berries, yogurt, and top with chia seeds.",
+            "preparation_time": "5 minutes",
+            "storage": "Assemble fresh. Components can be prepped night before.",
+            "health_benefits": ["complete_protein", "antioxidants", "probiotics", "cooling"]
+          },
+          {
+            "name": "Overnight Oats with Tropical Fruits",
+            "food_style": "modern",
+            "season": "summer",
+            "dietary_type": "vegetarian",
+            "ingredients": {
+              "oats": {
+                "quantity": "40g",
+                "serving": "1/2 cup"
+              },
+              "almond_milk": {
+                "quantity": "200ml",
+                "serving": "1 glass"
+              },
+              "mango": {
+                "quantity": "80g",
+                "serving": "1/2 cup diced"
+              },
+              "coconut_flakes": {
+                "quantity": "10g",
+                "serving": "1 tablespoon"
+              }
+            },
+            "total_nutrition": {
+              "calories": 285,
+              "protein": 9.8,
+              "carbs": 48.5,
+              "fat": 6.8,
+              "fiber": 8.2,
+              "vitamin_a": 385,
+              "vitamin_c": 28
+            },
+            "preparation_method": "Mix oats with almond milk, refrigerate overnight. Add fruits before serving.",
+            "preparation_time": "5 minutes (overnight soaking)",
+            "storage": "Prepare night before. Consume within 2 days.",
+            "health_benefits": ["heart_healthy", "fiber_rich", "cooling", "vitamin_rich"]
+          }
+        ],
+        "lunch": [
+          {
+            "name": "Buddha Bowl with Quinoa",
+            "food_style": "modern",
+            "season": "summer",
+            "dietary_type": "vegetarian",
+            "cooling_effect": true,
+            "ingredients": {
+              "quinoa_cooked": {
+                "quantity": "100g",
+                "serving": "2/3 cup"
+              },
+              "mixed_greens": {
+                "quantity": "80g",
+                "serving": "2 cups"
+              },
+              "cucumber": {
+                "quantity": "60g",
+                "serving": "1/2 cup sliced"
+              },
+              "avocado": {
+                "quantity": "50g",
+                "serving": "1/4 medium"
+              },
+              "chickpeas": {
+                "quantity": "60g",
+                "serving": "1/3 cup cooked"
+              },
+              "tahini_dressing": {
+                "quantity": "15ml",
+                "serving": "1 tablespoon"
+              }
+            },
+            "total_nutrition": {
+              "calories": 485,
+              "protein": 19.8,
+              "carbs": 58.2,
+              "fat": 18.5,
+              "fiber": 16.8,
+              "folate": 285,
+              "vitamin_k": 195
+            },
+            "preparation_method": "Arrange all ingredients in a bowl, drizzle with tahini dressing.",
+            "preparation_time": "15 minutes",
+            "storage": "Best consumed fresh. Components can be prepped separately.",
+            "health_benefits": ["complete_nutrition", "cooling", "high_fiber", "plant_protein"]
+          }
+        ]
+      },
+      "winter_meals": {
+        "breakfast": [
+          {
+            "name": "Warm Quinoa Porridge with Nuts",
+            "food_style": "modern",
+            "season": "winter",
+            "dietary_type": "vegetarian",
+            "warming_effect": true,
+            "ingredients": {
+              "quinoa": {
+                "quantity": "50g",
+                "serving": "1/4 cup dry"
+              },
+              "oat_milk": {
+                "quantity": "200ml",
+                "serving": "1 glass"
+              },
+              "mixed_nuts": {
+                "quantity": "20g",
+                "serving": "small handful"
+              },
+              "cinnamon": {
+                "quantity": "2g",
+                "serving": "1/2 teaspoon"
+              },
+              "maple_syrup": {
+                "quantity": "15ml",
+                "serving": "1 tablespoon"
+              }
+            },
+            "total_nutrition": {
+              "calories": 425,
+              "protein": 15.8,
+              "carbs": 58.5,
+              "fat": 14.2,
+              "fiber": 8.8,
+              "magnesium": 185,
+              "zinc": 3.8
+            },
+            "preparation_method": "Cook quinoa in oat milk with cinnamon, top with nuts and maple syrup.",
+            "preparation_time": "20 minutes",
+            "storage": "Best consumed fresh. Can be made ahead and reheated.",
+            "health_benefits": ["warming", "complete_protein", "heart_healthy", "sustained_energy"]
+          }
+        ]
+      }
+    },
+    "combination_meals": {
+      "fusion_breakfast": [
+        {
+          "name": "Ragi Pancakes with Greek Yogurt",
+          "food_style": "fusion",
+          "season": "year_round",
+          "dietary_type": "vegetarian",
+          "traditional_modern_mix": true,
+          "ingredients": {
+            "ragi_flour": {
+              "quantity": "40g",
+              "serving": "1/3 cup"
+            },
+            "wheat_flour": {
+              "quantity": "20g",
+              "serving": "2 tablespoons"
+            },
+            "greek_yogurt": {
+              "quantity": "100g",
+              "serving": "1/2 cup"
+            },
+            "honey": {
+              "quantity": "15ml",
+              "serving": "1 tablespoon"
+            },
+            "mixed_seeds": {
+              "quantity": "10g",
+              "serving": "1 tablespoon"
+            }
+          },
+          "total_nutrition": {
+            "calories": 345,
+            "protein": 18.5,
+            "carbs": 48.8,
+            "fat": 8.2,
+            "calcium": 285,
+            "iron": 4.8,
+            "probiotics": "high"
+          },
+          "preparation_method": "Make pancakes with ragi-wheat flour mix, serve with yogurt and honey.",
+          "preparation_time": "20 minutes",
+          "storage": "Pancakes: 1 day refrigerated. Best served fresh.",
+          "health_benefits": ["calcium_rich", "probiotics", "fiber_rich", "protein_dense"]
+        }
+      ],
+      "fusion_lunch": [
+        {
+          "name": "Quinoa Sambar Bowl",
+          "food_style": "fusion",
+          "season": "year_round",
+          "dietary_type": "vegetarian",
+          "ingredients": {
+            "quinoa_cooked": {
+              "quantity": "100g",
+              "serving": "2/3 cup"
+            },
+            "sambar": {
+              "quantity": "200ml",
+              "serving": "1 bowl"
+            },
+            "mixed_vegetables": {
+              "quantity": "100g",
+              "serving": "1/2 cup"
+            },
+            "coconut_chutney": {
+              "quantity": "20g",
+              "serving": "1.5 tablespoons"
+            }
+          },
+          "total_nutrition": {
+            "calories": 420,
+            "protein": 18.8,
+            "carbs": 62.5,
+            "fat": 9.8,
+            "fiber": 12.5,
+            "folate": 285,
+            "potassium": 885
+          },
+          "preparation_method": "Serve quinoa as base, top with sambar and vegetables, side of chutney.",
+          "preparation_time": "25 minutes",
+          "storage": "Best fresh. Sambar can be refrigerated for 2 days.",
+          "health_benefits": ["complete_protein", "traditional_flavors", "high_fiber"]
+        }
+      ]
+    }
+  },
+  "seasonal_food_recommendations": {
+    "summer": {
+      "focus": ["cooling_foods", "hydrating_foods", "light_meals"],
+      "recommended_ingredients": [
+        "cucumber", "watermelon", "buttermilk", "curd", "mint", "coconut_water", 
+        "foxtail_millet", "little_millet", "curd_rice", "salads"
+      ],
+      "avoid": ["heavy_foods", "excessive_spices", "fried_foods"],
+      "cooking_methods": ["steaming", "boiling", "raw_preparations", "minimal_oil"]
+    },
+    "monsoon": {
+      "focus": ["immunity_boosting", "warming_foods", "easy_digestion"],
+      "recommended_ingredients": [
+        "turmeric", "ginger", "garlic", "kodo_millet", "barnyard_millet", 
+        "hot_soups", "herbal_teas", "cooked_vegetables"
+      ],
+      "avoid": ["raw_foods", "street_food", "excess_water"],
+      "cooking_methods": ["steaming", "boiling", "light_frying", "pressure_cooking"]
+    },
+    "winter": {
+      "focus": ["warming_foods", "energy_dense", "immunity"],
+      "recommended_ingredients": [
+        "bajra", "jowar", "sesame", "jaggery", "ghee", "dry_fruits", 
+        "root_vegetables", "warm_spices", "hot_milk"
+      ],
+      "avoid": ["cold_foods", "ice_cream", "cold_drinks"],
+      "cooking_methods": ["roasting", "deep_cooking", "slow_cooking", "grilling"]
+    },
+    "spring": {
+      "focus": ["detox", "fresh_foods", "light_meals"],
+      "recommended_ingredients": [
+        "green_leafy_vegetables", "fresh_fruits", "herbal_teas", 
+        "light_millets", "bitter_vegetables"
+      ],
+      "avoid": ["heavy_foods", "excessive_dairy"],
+      "cooking_methods": ["light_cooking", "steaming", "sautéing"]
+    }
+  },
+  "dietary_type_meals": {
+    "pure_vegetarian": {
+      "protein_sources": ["dal", "paneer", "nuts", "seeds", "milk_products"],
+      "meal_structure": {
+        "breakfast": "grain + protein + fruit/vegetable",
+        "lunch": "grain + dal + vegetable + salad",
+        "dinner": "light_grain + vegetable + minimal_dal"
+      }
+    },
+    "non_vegetarian": {
+      "protein_sources": ["dal", "meat", "fish", "eggs", "dairy"],
+      "meal_structure": {
+        "breakfast": "grain + protein (egg/dairy)",
+        "lunch": "grain + dal/meat + vegetable",
+        "dinner": "grain + protein + vegetable"
+      }
+    },
+    "combination_flexible": {
+      "alternating_days": {
+        "vegetarian_days": "follow_pure_vegetarian_meals",
+        "non_vegetarian_days": "include_meat/fish/eggs"
+      },
+      "meal_wise": {
+        "breakfast": "usually_vegetarian",
+        "lunch": "can_be_either",
+        "dinner": "preference_based"
+      }
+    }
+  },
+  "portion_guidelines": {
+    "grains_per_meal": {
+      "breakfast": "40-60g dry weight",
+      "lunch": "60-80g dry weight", 
+      "dinner": "40-50g dry weight"
+    },
+    "dal_per_meal": {
+      "lunch": "30-40g dry weight",
+      "dinner": "20-30g dry weight"
+    },
+    "vegetables_per_meal": {
+      "lunch": "150-200g",
+      "dinner": "100-150g"
+    },
+    "dairy_per_day": "200-300ml milk equivalents",
+    "fruits_per_day": "200-300g",
+    "nuts_seeds_per_day": "20-30g"
+  },
+  "grocery_list_templates": {
+    "weekly_traditional": {
+      "grains_millets": ["ragi - 500g", "jowar - 500g", "bajra - 250g", "rice - 1kg"],
+      "pulses": ["toor_dal - 500g", "moong_dal - 250g", "chana_dal - 250g"],
+      "vegetables": ["seasonal_vegetables - 2kg", "onions - 500g", "tomatoes - 500g"],
+      "dairy": ["milk - 3.5L", "curd - 500g", "ghee - 200g"],
+      "spices_condiments": ["turmeric", "cumin", "coriander", "mustard_seeds", "curry_leaves"]
+    },
+    "weekly_modern": {
+      "grains": ["quinoa - 250g", "oats - 500g", "brown_rice - 500g", "whole_wheat - 500g"],
+      "proteins": ["greek_yogurt - 500g", "nuts_mix - 200g", "seeds_mix - 100g"],
+      "vegetables": ["mixed_greens - 500g", "bell_peppers - 300g", "cucumber - 500g"],
+      "fruits": ["seasonal_fruits - 1kg", "berries - 250g", "avocado - 2 pieces"],
+      "pantry": ["olive_oil", "tahini", "almond_milk", "coconut_flakes"]
+    }
+  }
+}

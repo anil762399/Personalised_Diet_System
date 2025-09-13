@@ -1,0 +1,1129 @@
+{
+    "food_items": {
+        "traditional_millets": {
+            "ragi": {
+                "name": "Ragi (Finger Millet)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 336,
+                    "protein_per_100g": 7.3,
+                    "carbs_per_100g": 72.0,
+                    "fat_per_100g": 1.3,
+                    "fiber_per_100g": 3.6
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.42,
+                    "B2_mg": 0.19,
+                    "B3_mg": 1.1,
+                    "B6_mg": 0.1,
+                    "B9_mcg": 18.3,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.74,
+                    "K_mcg": 0.9
+                },
+                "minerals": {
+                    "calcium_mg": 344,
+                    "iron_mg": 3.9,
+                    "magnesium_mg": 137,
+                    "phosphorus_mg": 283,
+                    "potassium_mg": 408,
+                    "sodium_mg": 11,
+                    "zinc_mg": 2.3,
+                    "copper_mg": 0.47,
+                    "manganese_mg": 5.49
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["bone_health", "anemia_prevention", "diabetes_control"],
+                "avoid_in_conditions": ["kidney_stones"],
+                "preparation_methods": ["roti", "mudde", "porridge", "dosa", "idli", "malt", "cookies", "upma"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 6 months",
+                "serving_size": {
+                    "flour": "30g (2 tablespoons)",
+                    "cooked_porridge": "150g (1 bowl)",
+                    "roti": "1 medium (25g flour)",
+                    "mudde": "1 ball (40g flour)"
+                },
+                "glycemic_index": 68
+            },
+            "jowar": {
+                "name": "Jowar (Sorghum)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 349,
+                    "protein_per_100g": 10.4,
+                    "carbs_per_100g": 70.7,
+                    "fat_per_100g": 1.9,
+                    "fiber_per_100g": 9.7
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.38,
+                    "B2_mg": 0.14,
+                    "B3_mg": 2.9,
+                    "B6_mg": 0.4,
+                    "B9_mcg": 20,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 1.7,
+                    "K_mcg": 1.9
+                },
+                "minerals": {
+                    "calcium_mg": 25,
+                    "iron_mg": 9.4,
+                    "magnesium_mg": 171,
+                    "phosphorus_mg": 287,
+                    "potassium_mg": 350,
+                    "sodium_mg": 6,
+                    "zinc_mg": 1.7,
+                    "copper_mg": 0.18,
+                    "manganese_mg": 1.6
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["winter", "post_monsoon"],
+                "cost": "low",
+                "health_benefits": ["heart_health", "weight_management", "diabetes_control"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["roti", "khichdi", "upma", "bhakri", "puffs", "dosa"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 6 months",
+                "serving_size": {
+                    "flour": "30g (2 tablespoons)",
+                    "cooked": "150g (1 bowl)",
+                    "roti": "1 medium (25g flour)"
+                },
+                "glycemic_index": 62
+            },
+            "bajra": {
+                "name": "Bajra (Pearl Millet)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 361,
+                    "protein_per_100g": 11.8,
+                    "carbs_per_100g": 67.5,
+                    "fat_per_100g": 5.0,
+                    "fiber_per_100g": 11.5
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.33,
+                    "B2_mg": 0.25,
+                    "B3_mg": 2.8,
+                    "B6_mg": 0.4,
+                    "B9_mcg": 45.5,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.4,
+                    "K_mcg": 0.9
+                },
+                "minerals": {
+                    "calcium_mg": 42,
+                    "iron_mg": 11.0,
+                    "magnesium_mg": 137,
+                    "phosphorus_mg": 296,
+                    "potassium_mg": 307,
+                    "sodium_mg": 5,
+                    "zinc_mg": 3.1,
+                    "copper_mg": 1.06,
+                    "manganese_mg": 1.15
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["winter"],
+                "cost": "low",
+                "health_benefits": ["winter_warming", "heart_health", "diabetes_control"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["roti", "kheer", "khichdi", "laddu", "dhokla", "upma"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 6 months",
+                "serving_size": {
+                    "flour": "30g (2 tablespoons)",
+                    "cooked": "150g (1 bowl)",
+                    "roti": "1 medium (25g flour)"
+                },
+                "glycemic_index": 67
+            },
+            "kodo_millet": {
+                "name": "Kodo Millet",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 353,
+                    "protein_per_100g": 9.8,
+                    "carbs_per_100g": 66.6,
+                    "fat_per_100g": 4.2,
+                    "fiber_per_100g": 10.2
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.33,
+                    "B2_mg": 0.09,
+                    "B3_mg": 2.0,
+                    "B6_mg": 0.4,
+                    "B9_mcg": 25.4,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.05,
+                    "K_mcg": 0.9
+                },
+                "minerals": {
+                    "calcium_mg": 35,
+                    "iron_mg": 2.3,
+                    "magnesium_mg": 147,
+                    "phosphorus_mg": 188,
+                    "potassium_mg": 144,
+                    "sodium_mg": 4.6,
+                    "zinc_mg": 1.4,
+                    "copper_mg": 0.37,
+                    "manganese_mg": 1.1
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["monsoon", "post_monsoon"],
+                "cost": "medium",
+                "health_benefits": ["antioxidants", "diabetes_control"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["rice", "khichdi", "upma", "dosa"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 6 months",
+                "serving_size": {
+                    "raw": "50g (1/4 cup)",
+                    "cooked": "150g (1 bowl)"
+                },
+                "glycemic_index": 65
+            },
+            "little_millet": {
+                "name": "Little Millet (Kutki)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 341,
+                    "protein_per_100g": 10.1,
+                    "carbs_per_100g": 65.5,
+                    "fat_per_100g": 3.9,
+                    "fiber_per_100g": 7.6
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.30,
+                    "B2_mg": 0.09,
+                    "B3_mg": 3.2,
+                    "B6_mg": 0.4,
+                    "B9_mcg": 18.3,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.05,
+                    "K_mcg": 0.9
+                },
+                "minerals": {
+                    "calcium_mg": 17,
+                    "iron_mg": 1.3,
+                    "magnesium_mg": 133,
+                    "phosphorus_mg": 220,
+                    "potassium_mg": 129,
+                    "sodium_mg": 8.1,
+                    "zinc_mg": 1.4,
+                    "copper_mg": 0.47,
+                    "manganese_mg": 1.0
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["monsoon", "post_monsoon"],
+                "cost": "medium",
+                "health_benefits": ["easy_digestion", "weight_management"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["rice", "khichdi", "pulao"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 6 months",
+                "serving_size": {
+                    "raw": "50g (1/4 cup)",
+                    "cooked": "150g (1 bowl)"
+                },
+                "glycemic_index": 64
+            },
+            "foxtail_millet": {
+                "name": "Foxtail Millet (Kakum)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 351,
+                    "protein_per_100g": 11.2,
+                    "carbs_per_100g": 60.9,
+                    "fat_per_100g": 4.3,
+                    "fiber_per_100g": 6.7
+                },
+                "vitamins": {
+                    "A_mcg": 32,
+                    "B1_mg": 0.59,
+                    "B2_mg": 0.11,
+                    "B3_mg": 3.2,
+                    "B6_mg": 0.4,
+                    "B9_mcg": 15,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.05,
+                    "K_mcg": 0.9
+                },
+                "minerals": {
+                    "calcium_mg": 31,
+                    "iron_mg": 2.8,
+                    "magnesium_mg": 81,
+                    "phosphorus_mg": 290,
+                    "potassium_mg": 250,
+                    "sodium_mg": 4.6,
+                    "zinc_mg": 2.4,
+                    "copper_mg": 1.4,
+                    "manganese_mg": 0.6
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["summer", "monsoon"],
+                "cost": "medium",
+                "health_benefits": ["blood_sugar_control", "heart_health"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["rice", "upma", "kheer", "idli"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 6 months",
+                "serving_size": {
+                    "raw": "50g (1/4 cup)",
+                    "cooked": "150g (1 bowl)"
+                },
+                "glycemic_index": 50
+            },
+            "barnyard_millet": {
+                "name": "Barnyard Millet (Jhangora)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 307,
+                    "protein_per_100g": 11.5,
+                    "carbs_per_100g": 55.0,
+                    "fat_per_100g": 3.9,
+                    "fiber_per_100g": 13.6
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.33,
+                    "B2_mg": 0.10,
+                    "B3_mg": 4.2,
+                    "B6_mg": 0.4,
+                    "B9_mcg": 18.3,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.01,
+                    "K_mcg": 0.9
+                },
+                "minerals": {
+                    "calcium_mg": 20,
+                    "iron_mg": 15.2,
+                    "magnesium_mg": 82,
+                    "phosphorus_mg": 280,
+                    "potassium_mg": 307,
+                    "sodium_mg": 8.1,
+                    "zinc_mg": 3.0,
+                    "copper_mg": 0.47,
+                    "manganese_mg": 1.0
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["monsoon", "post_monsoon"],
+                "cost": "medium",
+                "health_benefits": ["high_fiber", "iron_rich"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["khichdi", "upma", "pulao"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 6 months",
+                "serving_size": {
+                    "raw": "50g (1/4 cup)",
+                    "cooked": "150g (1 bowl)"
+                },
+                "glycemic_index": 50
+            }
+        },
+        "grains_cereals": {
+            "rice_cooked": {
+                "name": "Rice (Cooked)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 130,
+                    "protein_per_100g": 2.7,
+                    "carbs_per_100g": 28.2,
+                    "fat_per_100g": 0.3,
+                    "fiber_per_100g": 0.4
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.07,
+                    "B2_mg": 0.01,
+                    "B3_mg": 1.6,
+                    "B6_mg": 0.1,
+                    "B9_mcg": 3,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.11,
+                    "K_mcg": 0.1
+                },
+                "minerals": {
+                    "calcium_mg": 28,
+                    "iron_mg": 0.8,
+                    "magnesium_mg": 25,
+                    "phosphorus_mg": 115,
+                    "potassium_mg": 115,
+                    "sodium_mg": 5,
+                    "zinc_mg": 1.09,
+                    "copper_mg": 0.22,
+                    "manganese_mg": 1.09
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["energy", "easy_digestion"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["boiled", "steamed", "fried_rice", "pulao", "biryani"],
+                "storage": "Cooked rice: Refrigerate for 2-3 days. Raw rice: Store in airtight containers for 1-2 years",
+                "serving_size": {
+                    "cooked": "150g (1 bowl)",
+                    "raw": "50g (1/4 cup)"
+                },
+                "glycemic_index": 73
+            },
+            "brown_rice": {
+                "name": "Brown Rice",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 112,
+                    "protein_per_100g": 2.6,
+                    "carbs_per_100g": 23.0,
+                    "fat_per_100g": 0.9,
+                    "fiber_per_100g": 1.8
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.41,
+                    "B2_mg": 0.09,
+                    "B3_mg": 5.09,
+                    "B6_mg": 0.51,
+                    "B9_mcg": 20,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 1.2,
+                    "K_mcg": 1.9
+                },
+                "minerals": {
+                    "calcium_mg": 33,
+                    "iron_mg": 1.47,
+                    "magnesium_mg": 143,
+                    "phosphorus_mg": 333,
+                    "potassium_mg": 223,
+                    "sodium_mg": 7,
+                    "zinc_mg": 2.02,
+                    "copper_mg": 0.20,
+                    "manganese_mg": 3.74
+                },
+                "food_style": "modern",
+                "seasonal_availability": ["year_round"],
+                "cost": "medium",
+                "health_benefits": ["high_fiber", "diabetes_friendly"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["boiled", "steamed", "pilaf", "salad"],
+                "storage": "Store in airtight containers in cool place. Shelf life: 6 months",
+                "serving_size": {
+                    "cooked": "150g (1 bowl)",
+                    "raw": "50g (1/4 cup)"
+                },
+                "glycemic_index": 50
+            },
+            "wheat_flour": {
+                "name": "Wheat Flour",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 364,
+                    "protein_per_100g": 12.6,
+                    "carbs_per_100g": 72.6,
+                    "fat_per_100g": 1.7,
+                    "fiber_per_100g": 2.3
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.48,
+                    "B2_mg": 0.12,
+                    "B3_mg": 6.37,
+                    "B6_mg": 0.4,
+                    "B9_mcg": 44,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.71,
+                    "K_mcg": 1.9
+                },
+                "minerals": {
+                    "calcium_mg": 34,
+                    "iron_mg": 3.88,
+                    "magnesium_mg": 138,
+                    "phosphorus_mg": 357,
+                    "potassium_mg": 363,
+                    "sodium_mg": 8,
+                    "zinc_mg": 2.93,
+                    "copper_mg": 0.38,
+                    "manganese_mg": 3.8
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["protein", "B_vitamins"],
+                "avoid_in_conditions": ["celiac_disease", "gluten_intolerance"],
+                "preparation_methods": ["roti", "paratha", "bread", "pasta", "cake", "biscuits"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 8-12 months",
+                "serving_size": {
+                    "flour": "30g (2 tablespoons)",
+                    "roti": "1 medium (25g flour)"
+                },
+                "glycemic_index": 71
+            },
+            "oats": {
+                "name": "Oats",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 389,
+                    "protein_per_100g": 16.9,
+                    "carbs_per_100g": 66.3,
+                    "fat_per_100g": 6.9,
+                    "fiber_per_100g": 10.6
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.76,
+                    "B2_mg": 0.14,
+                    "B3_mg": 0.96,
+                    "B6_mg": 0.12,
+                    "B9_mcg": 56,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.7,
+                    "K_mcg": 2.0
+                },
+                "minerals": {
+                    "calcium_mg": 54,
+                    "iron_mg": 4.7,
+                    "magnesium_mg": 177,
+                    "phosphorus_mg": 523,
+                    "potassium_mg": 429,
+                    "sodium_mg": 2,
+                    "zinc_mg": 3.97,
+                    "copper_mg": 0.63,
+                    "manganese_mg": 4.9
+                },
+                "food_style": "modern",
+                "seasonal_availability": ["year_round"],
+                "cost": "medium",
+                "health_benefits": ["heart_health", "cholesterol_reduction"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["porridge", "upma", "cookies", "smoothie", "overnight_oats"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 2 years",
+                "serving_size": {
+                    "raw": "40g (1/2 cup)",
+                    "cooked": "150g (1 bowl)"
+                },
+                "glycemic_index": 55
+            },
+            "quinoa": {
+                "name": "Quinoa",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 368,
+                    "protein_per_100g": 14.1,
+                    "carbs_per_100g": 64.2,
+                    "fat_per_100g": 6.1,
+                    "fiber_per_100g": 7.0
+                },
+                "vitamins": {
+                    "A_mcg": 1,
+                    "B1_mg": 0.36,
+                    "B2_mg": 0.32,
+                    "B3_mg": 1.52,
+                    "B6_mg": 0.49,
+                    "B9_mcg": 184,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 2.4,
+                    "K_mcg": 0
+                },
+                "minerals": {
+                    "calcium_mg": 47,
+                    "iron_mg": 4.57,
+                    "magnesium_mg": 197,
+                    "phosphorus_mg": 457,
+                    "potassium_mg": 563,
+                    "sodium_mg": 5,
+                    "zinc_mg": 3.1,
+                    "copper_mg": 0.59,
+                    "manganese_mg": 2.03
+                },
+                "food_style": "modern",
+                "seasonal_availability": ["year_round"],
+                "cost": "high",
+                "health_benefits": ["complete_protein", "gluten_free"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["salad", "pilaf", "soup", "porridge", "patties"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 2-3 years",
+                "serving_size": {
+                    "raw": "50g (1/4 cup)",
+                    "cooked": "150g (1 bowl)"
+                },
+                "glycemic_index": 53
+            },
+            "semolina": {
+                "name": "Semolina (Suji)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 360,
+                    "protein_per_100g": 12.7,
+                    "carbs_per_100g": 72.8,
+                    "fat_per_100g": 1.0,
+                    "fiber_per_100g": 3.9
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.28,
+                    "B2_mg": 0.08,
+                    "B3_mg": 3.31,
+                    "B6_mg": 0.17,
+                    "B9_mcg": 72,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.56,
+                    "K_mcg": 0.4
+                },
+                "minerals": {
+                    "calcium_mg": 17,
+                    "iron_mg": 1.23,
+                    "magnesium_mg": 47,
+                    "phosphorus_mg": 136,
+                    "potassium_mg": 186,
+                    "sodium_mg": 1,
+                    "zinc_mg": 1.05,
+                    "copper_mg": 0.19,
+                    "manganese_mg": 0.92
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["energy", "protein"],
+                "avoid_in_conditions": ["gluten_intolerance"],
+                "preparation_methods": ["upma", "halwa", "idli", "dhokla", "pasta"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 8-12 months",
+                "serving_size": {
+                    "raw": "30g (2 tablespoons)",
+                    "cooked_upma": "150g (1 bowl)"
+                },
+                "glycemic_index": 60
+            },
+            "poha": {
+                "name": "Poha (Flattened Rice)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 346,
+                    "protein_per_100g": 6.6,
+                    "carbs_per_100g": 77.3,
+                    "fat_per_100g": 0.6,
+                    "fiber_per_100g": 0.2
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.06,
+                    "B2_mg": 0.06,
+                    "B3_mg": 4.8,
+                    "B6_mg": 0.1,
+                    "B9_mcg": 8,
+                    "B12_mcg": 0,
+                    "C_mg": 0,
+                    "D_mcg": 0,
+                    "E_mg": 0.04,
+                    "K_mcg": 0.1
+                },
+                "minerals": {
+                    "calcium_mg": 20,
+                    "iron_mg": 20,
+                    "magnesium_mg": 80,
+                    "phosphorus_mg": 97,
+                    "potassium_mg": 100,
+                    "sodium_mg": 8,
+                    "zinc_mg": 1.4,
+                    "copper_mg": 0.22,
+                    "manganese_mg": 0.91
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["quick_energy", "iron"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["poha", "chivda", "upma"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 6 months",
+                "serving_size": {
+                    "raw": "50g (1/2 cup)",
+                    "cooked": "150g (1 bowl)"
+                },
+                "glycemic_index": 77
+            }
+        },
+        "legumes_pulses": {
+            "toor_dal": {
+                "name": "Toor Dal (Pigeon Pea)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 343,
+                    "protein_per_100g": 22.3,
+                    "carbs_per_100g": 57.6,
+                    "fat_per_100g": 1.7,
+                    "fiber_per_100g": 15.5
+                },
+                "vitamins": {
+                    "A_mcg": 4,
+                    "B1_mg": 0.48,
+                    "B2_mg": 0.19,
+                    "B3_mg": 2.96,
+                    "B6_mg": 0.28,
+                    "B9_mcg": 456,
+                    "B12_mcg": 0,
+                    "C_mg": 1.5,
+                    "D_mcg": 0,
+                    "E_mg": 0.86,
+                    "K_mcg": 9.0
+                },
+                "minerals": {
+                    "calcium_mg": 130,
+                    "iron_mg": 2.76,
+                    "magnesium_mg": 183,
+                    "phosphorus_mg": 367,
+                    "potassium_mg": 1392,
+                    "sodium_mg": 17,
+                    "zinc_mg": 2.76,
+                    "copper_mg": 0.83,
+                    "manganese_mg": 1.79
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["protein", "folate"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["dal", "sambar", "rasam", "khichdi"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 1-2 years",
+                "serving_size": {
+                    "raw": "30g (2 tablespoons)",
+                    "cooked": "100g (1/2 bowl)"
+                },
+                "glycemic_index": 22
+            },
+            "moong_dal": {
+                "name": "Moong Dal (Green Gram)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 347,
+                    "protein_per_100g": 24.5,
+                    "carbs_per_100g": 59.0,
+                    "fat_per_100g": 1.2,
+                    "fiber_per_100g": 16.3
+                },
+                "vitamins": {
+                    "A_mcg": 6,
+                    "B1_mg": 0.62,
+                    "B2_mg": 0.23,
+                    "B3_mg": 2.25,
+                    "B6_mg": 0.38,
+                    "B9_mcg": 625,
+                    "B12_mcg": 0,
+                    "C_mg": 4.8,
+                    "D_mcg": 0,
+                    "E_mg": 0.51,
+                    "K_mcg": 9.0
+                },
+                "minerals": {
+                    "calcium_mg": 132,
+                    "iron_mg": 6.74,
+                    "magnesium_mg": 189,
+                    "phosphorus_mg": 367,
+                    "potassium_mg": 1246,
+                    "sodium_mg": 15,
+                    "zinc_mg": 2.68,
+                    "copper_mg": 0.94,
+                    "manganese_mg": 1.04
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["easy_digestion", "protein"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["dal", "khichdi", "sprouts", "pancakes", "soup"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 1-2 years",
+                "serving_size": {
+                    "raw": "30g (2 tablespoons)",
+                    "cooked": "100g (1/2 bowl)"
+                },
+                "glycemic_index": 25
+            },
+            "chana_dal": {
+                "name": "Chana Dal (Bengal Gram)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 357,
+                    "protein_per_100g": 22.5,
+                    "carbs_per_100g": 57.2,
+                    "fat_per_100g": 4.5,
+                    "fiber_per_100g": 30.2
+                },
+                "vitamins": {
+                    "A_mcg": 7,
+                    "B1_mg": 0.19,
+                    "B2_mg": 0.12,
+                    "B3_mg": 1.54,
+                    "B6_mg": 0.54,
+                    "B9_mcg": 557,
+                    "B12_mcg": 0,
+                    "C_mg": 3.0,
+                    "D_mcg": 0,
+                    "E_mg": 0.93,
+                    "K_mcg": 5.7
+                },
+                "minerals": {
+                    "calcium_mg": 61,
+                    "iron_mg": 4.31,
+                    "magnesium_mg": 140,
+                    "phosphorus_mg": 340,
+                    "potassium_mg": 875,
+                    "sodium_mg": 30,
+                    "zinc_mg": 3.43,
+                    "copper_mg": 0.66,
+                    "manganese_mg": 1.67
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["high_fiber", "protein"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["dal", "roasted_snack", "flour", "laddu"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 1-2 years",
+                "serving_size": {
+                    "raw": "30g (2 tablespoons)",
+                    "cooked": "100g (1/2 bowl)"
+                },
+                "glycemic_index": 8
+            },
+            "masoor_dal": {
+                "name": "Masoor Dal (Red Lentil)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 352,
+                    "protein_per_100g": 25.8,
+                    "carbs_per_100g": 54.5,
+                    "fat_per_100g": 1.1,
+                    "fiber_per_100g": 11.5
+                },
+                "vitamins": {
+                    "A_mcg": 2,
+                    "B1_mg": 0.87,
+                    "B2_mg": 0.21,
+                    "B3_mg": 2.61,
+                    "B6_mg": 0.54,
+                    "B9_mcg": 479,
+                    "B12_mcg": 0,
+                    "C_mg": 4.5,
+                    "D_mcg": 0,
+                    "E_mg": 0.49,
+                    "K_mcg": 1.7
+                },
+                "minerals": {
+                    "calcium_mg": 56,
+                    "iron_mg": 7.54,
+                    "magnesium_mg": 122,
+                    "phosphorus_mg": 281,
+                    "potassium_mg": 677,
+                    "sodium_mg": 6,
+                    "zinc_mg": 3.27,
+                    "copper_mg": 0.75,
+                    "manganese_mg": 1.39
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["iron", "folate"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["dal", "soup", "curry", "khichdi"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 1-2 years",
+                "serving_size": {
+                    "raw": "30g (2 tablespoons)",
+                    "cooked": "100g (1/2 bowl)"
+                },
+                "glycemic_index": 26
+            },
+            "urad_dal": {
+                "name": "Urad Dal (Black Gram)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 341,
+                    "protein_per_100g": 25.2,
+                    "carbs_per_100g": 58.9,
+                    "fat_per_100g": 1.6,
+                    "fiber_per_100g": 18.3
+                },
+                "vitamins": {
+                    "A_mcg": 2,
+                    "B1_mg": 0.27,
+                    "B2_mg": 0.25,
+                    "B3_mg": 1.45,
+                    "B6_mg": 0.28,
+                    "B9_mcg": 216,
+                    "B12_mcg": 0,
+                    "C_mg": 1.5,
+                    "D_mcg": 0,
+                    "E_mg": 0.17,
+                    "K_mcg": 7.4
+                },
+                "minerals": {
+                    "calcium_mg": 173,
+                    "iron_mg": 9.30,
+                    "magnesium_mg": 273,
+                    "phosphorus_mg": 370,
+                    "potassium_mg": 983,
+                    "sodium_mg": 35,
+                    "zinc_mg": 3.35,
+                    "copper_mg": 1.06,
+                    "manganese_mg": 1.33
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["protein", "calcium"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["dal", "idli", "dosa", "vada", "papad"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 1-2 years",
+                "serving_size": {
+                    "raw": "30g (2 tablespoons)",
+                    "cooked": "100g (1/2 bowl)"
+                },
+                "glycemic_index": 25
+            },
+            "rajma": {
+                "name": "Rajma (Kidney Beans)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 333,
+                    "protein_per_100g": 22.9,
+                    "carbs_per_100g": 60.3,
+                    "fat_per_100g": 1.4,
+                    "fiber_per_100g": 25.0
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.54,
+                    "B2_mg": 0.22,
+                    "B3_mg": 2.19,
+                    "B6_mg": 0.40,
+                    "B9_mcg": 394,
+                    "B12_mcg": 0,
+                    "C_mg": 4.5,
+                    "D_mcg": 0,
+                    "E_mg": 0.03,
+                    "K_mcg": 19.0
+                },
+                "minerals": {
+                    "calcium_mg": 143,
+                    "iron_mg": 8.20,
+                    "magnesium_mg": 140,
+                    "phosphorus_mg": 407,
+                    "potassium_mg": 1406,
+                    "sodium_mg": 24,
+                    "zinc_mg": 2.79,
+                    "copper_mg": 0.89,
+                    "manganese_mg": 1.06
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["heart_health", "protein"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["curry", "salad", "soup"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 1-2 years",
+                "serving_size": {
+                    "raw": "50g (1/4 cup)",
+                    "cooked": "100g (1/2 bowl)"
+                },
+                "glycemic_index": 19
+            },
+            "chole": {
+                "name": "Chole (Chickpeas)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 378,
+                    "protein_per_100g": 17.1,
+                    "carbs_per_100g": 63.0,
+                    "fat_per_100g": 6.0,
+                    "fiber_per_100g": 17.4
+                },
+                "vitamins": {
+                    "A_mcg": 3,
+                    "B1_mg": 0.48,
+                    "B2_mg": 0.21,
+                    "B3_mg": 1.54,
+                    "B6_mg": 0.54,
+                    "B9_mcg": 557,
+                    "B12_mcg": 0,
+                    "C_mg": 4.0,
+                    "D_mcg": 0,
+                    "E_mg": 0.82,
+                    "K_mcg": 9.0
+                },
+                "minerals": {
+                    "calcium_mg": 105,
+                    "iron_mg": 6.24,
+                    "magnesium_mg": 115,
+                    "phosphorus_mg": 252,
+                    "potassium_mg": 875,
+                    "sodium_mg": 24,
+                    "zinc_mg": 3.43,
+                    "copper_mg": 0.66,
+                    "manganese_mg": 2.20
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["protein", "folate"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["curry", "roasted_snack", "hummus", "salad"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 1-2 years",
+                "serving_size": {
+                    "raw": "50g (1/4 cup)",
+                    "cooked": "100g (1/2 bowl)"
+                },
+                "glycemic_index": 33
+            },
+            "black_eyed_peas": {
+                "name": "Black Eyed Peas (Lobia)",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 336,
+                    "protein_per_100g": 23.5,
+                    "carbs_per_100g": 60.0,
+                    "fat_per_100g": 1.3,
+                    "fiber_per_100g": 10.7
+                },
+                "vitamins": {
+                    "A_mcg": 3,
+                    "B1_mg": 0.84,
+                    "B2_mg": 0.19,
+                    "B3_mg": 2.83,
+                    "B6_mg": 0.36,
+                    "B9_mcg": 356,
+                    "B12_mcg": 0,
+                    "C_mg": 1.5,
+                    "D_mcg": 0,
+                    "E_mg": 0.84,
+                    "K_mcg": 2.7
+                },
+                "minerals": {
+                    "calcium_mg": 110,
+                    "iron_mg": 8.27,
+                    "magnesium_mg": 184,
+                    "phosphorus_mg": 278,
+                    "potassium_mg": 1112,
+                    "sodium_mg": 17,
+                    "zinc_mg": 3.25,
+                    "copper_mg": 0.78,
+                    "manganese_mg": 1.48
+                },
+                "food_style": "traditional",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["folate", "potassium"],
+                "avoid_in_conditions": [],
+                "preparation_methods": ["curry", "salad", "soup"],
+                "storage": "Store in airtight containers in cool, dry place. Shelf life: 1-2 years",
+                "serving_size": {
+                    "raw": "50g (1/4 cup)",
+                    "cooked": "100g (1/2 bowl)"
+                },
+                "glycemic_index": 26
+            }
+        },
+        "vegetables": {
+            "potato": {
+                "name": "Potato",
+                "dietary_type": "vegetarian",
+                "macros": {
+                    "calories_per_100g": 77,
+                    "protein_per_100g": 2.0,
+                    "carbs_per_100g": 17.0,
+                    "fat_per_100g": 0.1,
+                    "fiber_per_100g": 2.2
+                },
+                "vitamins": {
+                    "A_mcg": 0,
+                    "B1_mg": 0.08,
+                    "B2_mg": 0.03,
+                    "B3_mg": 1.06,
+                    "B6_mg": 0.30,
+                    "B9_mcg": 15,
+                    "B12_mcg": 0,
+                    "C_mg": 19.7,
+                    "D_mcg": 0,
+                    "E_mg": 0.01,
+                    "K_mcg": 2.0
+                },
+                "minerals": {
+                    "calcium_mg": 12,
+                    "iron_mg": 0.81,
+                    "magnesium_mg": 23,
+                    "phosphorus_mg": 57,
+                    "potassium_mg": 425,
+                    "sodium_mg": 6,
+                    "zinc_mg": 0.30,
+                    "copper_mg": 0.11,
+                    "manganese_mg": 0.15
+                },
+                "food_style": "both",
+                "seasonal_availability": ["year_round"],
+                "cost": "low",
+                "health_benefits": ["potassium", "vitamin_c"],
+                "avoid_in_conditions": ["diabetes"],
+                "preparation_methods": ["boiled", "baked", "fried", "curry", "mashed"],
+                "storage": "Store in cool, dark, dry place. Avoid refrigeration. Shelf life: 2-3 weeks",
+                "serving_size": {
+                    "medium": "150g (1 medium potato)",
+                    "cooked": "100g (1/2 cup)"
+                },
+                "glycemic_index": 78
+            }
+        }
+    },
+    "dietary_combinations": {
+        "pure_vegetarian": {
+            "description": "No meat, fish, eggs, or animal-derived products except dairy",
+            "suitable_foods": ["all_vegetables", "fruits", "grains", "legumes", "dairy", "nuts"],
+            "avoid_foods": ["meat", "fish", "eggs", "gelatin"]
+        },
+        "non_vegetarian": {
+            "description": "Includes all animal products including meat, fish, eggs",
+            "suitable_foods": ["all_foods"],
+            "avoid_foods": []
+        },
+        "combination_flexible": {
+            "description": "Flexible approach - vegetarian some days, non-vegetarian others",
+            "suitable_foods": ["all_foods_with_flexibility"],
+            "meal_planning": "alternate_days_or_meals"
+        },
+        "eggetarian": {
+            "description": "Vegetarian diet that includes eggs",
+            "suitable_foods": ["all_vegetarian_foods", "eggs"],
+            "avoid_foods": ["meat", "fish"]
+        },
+        "pescatarian": {
+            "description": "Vegetarian diet that includes fish and seafood",
+            "suitable_foods": ["all_vegetarian_foods", "fish", "seafood"],
+            "avoid_foods": ["meat", "poultry"]
+        },
+        "vegan": {
+            "description": "No animal products whatsoever",
+            "suitable_foods": ["vegetables", "fruits", "grains", "legumes", "nuts", "seeds"],
+            "avoid_foods": ["all_animal_products", "dairy", "honey"]
+        }
+    }
+}

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Diet Chatbot - Complete Nutrition & Seasonal Planning</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-leaf"></i>
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Smart Diet Assistant</h1>
+                        <p>Complete nutrition with seasonal planning</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="feature-badges">
+                        <span class="feature-badge"><i class="fas fa-seedling"></i> Traditional + Modern</span>
+                        <span class="feature-badge"><i class="fas fa-calendar-alt"></i> Seasonal Foods</span>
+                        <span class="feature-badge"><i class="fas fa-microchip"></i> Complete Nutrition</span>
+                        <span class="feature-badge"><i class="fas fa-microphone"></i> Voice Input</span>
+                    </div>
+                    <button id="resetBtn" class="reset-btn">
+                        <i class="fas fa-refresh"></i>
+                        New Chat
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Enhanced Welcome message -->
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-text">
+                            🌟 <strong>Welcome to your Enhanced Smart Diet Assistant!</strong>
+                            <br><br>
+                            I'll create a personalized meal plan with complete nutrition analysis:
+                            
+                            <div class="feature-highlight">
+                                <div class="feature-item">
+                                    <i class="fas fa-atom"></i>
+                                    <span><strong>Complete Nutrition Tracking</strong><br>
+                                    All vitamins, minerals, protein, carbs, fats & more</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <span><strong>Traditional + Modern Foods</strong><br>
+                                    Choose your preferred food style or combine both</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span><strong>Seasonal Recommendations</strong><br>
+                                    Foods perfect for current season & your health</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-utensils"></i>
+                                    <span><strong>Complete Food Details</strong><br>
+                                    Quantities, recipes, storage & grocery lists</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-microphone"></i>
+                                    <span><strong>Voice Input Support</strong><br>
+                                    Speak your preferences naturally</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-leaf"></i>
+                                    <span><strong>Flexible Diet Types</strong><br>
+                                    Veg, Non-veg, or perfect combination</span>
+                                </div>
+                            </div>
+                            
+                            <div class="welcome-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">25+</span>
+                                    <span class="stat-label">Nutrients Tracked</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">1000+</span>
+                                    <span class="stat-label">Food Database</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">4</span>
+                                    <span class="stat-label">Seasonal Menus</span>
+                                </div>
+                            </div>
+                            
+                            Ready to start your complete nutrition journey? 🚀
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-btn primary-btn" onclick="startPlanning()">
+                                <i class="fas fa-play"></i> Start Planning
+                            </button>
+                            <button class="quick-btn secondary-btn" onclick="showNutritionInfo()">
+                                <i class="fas fa-atom"></i> Nutrition Features
+                            </button>
+                            <button class="quick-btn secondary-btn" onclick="showSeasonalInfo()">
+                                <i class="fas fa-calendar-alt"></i> Seasonal Foods
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Input Area -->
+            <div class="input-area">
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="messageInput" 
+                            placeholder="Type your message or click the mic to speak..." 
+                            disabled
+                        >
+                        <button id="voiceBtn" class="voice-btn" title="Voice Input" disabled>
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <div class="input-suggestions" id="inputSuggestions" style="display: none;">
+                            <!-- Dynamic suggestions will appear here -->
+                        </div>
+                    </div>
+                    <button id="sendBtn" class="send-btn" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-status" id="inputStatus">
+                    Click "Start Planning" to begin your personalized diet journey
+                </div>
+                <div class="voice-status" id="voiceStatus" style="display: none;">
+                    <div class="voice-indicator">
+                        <div class="voice-wave"></div>
+                        <div class="voice-wave"></div>
+                        <div class="voice-wave"></div>
+                    </div>
+                    <span>Listening... Speak now</span>
+                </div>
+                <div class="chat-features">
+                    <span class="chat-feature"><i class="fas fa-microphone"></i> Voice Commands</span>
+                    <span class="chat-feature"><i class="fas fa-calendar"></i> Seasonal Planning</span>
+                    <span class="chat-feature"><i class="fas fa-atom"></i> Complete Nutrition</span>
+                    <span class="chat-feature"><i class="fas fa-utensils"></i> Recipe & Storage</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Loading Indicator -->
+        <div class="loading-indicator" id="loadingIndicator">
+            <div class="loading-content">
+                <div class="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                </div>
+                <div class="loading-text">
+                    <span class="loading-title">AI is analyzing...</span>
+                    <span class="loading-subtitle" id="loadingSubtitle">Processing your complete nutrition needs</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Diet Plan Modal -->
+        <div class="modal" id="dietPlanModal">
+            <div class="modal-content enhanced-modal">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <i class="fas fa-calendar-alt"></i> 
+                        <div>
+                            <h2>Your Complete Nutrition Plan</h2>
+                            <p>Traditional/Modern foods with seasonal recommendations</p>
+                        </div>
+                    </div>
+                    <div class="modal-tabs">
+                        <button class="tab-btn active" onclick="showTab('meal-plan')">
+                            <i class="fas fa-utensils"></i> Meal Plan
+                        </button>
+                        <button class="tab-btn" onclick="showTab('nutrition-analysis')">
+                            <i class="fas fa-atom"></i> Nutrition
+                        </button>
+                        <button class="tab-btn" onclick="showTab('recipes')">
+                            <i class="fas fa-book"></i> Recipes
+                        </button>
+                        <button class="tab-btn" onclick="showTab('grocery-list')">
+                            <i class="fas fa-shopping-cart"></i> Grocery
+                        </button>
+                        <button class="tab-btn" onclick="showTab('storage-guide')">
+                            <i class="fas fa-archive"></i> Storage
+                        </button>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="modal-btn" onclick="downloadCompletePlan()">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="modal-btn" onclick="sharePlan()">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="close-btn" onclick="closeDietPlan()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="dietPlanContent">
+                    <div class="tab-content" id="meal-plan-tab">
+                        <!-- Meal plan content -->
+                    </div>
+                    <div class="tab-content" id="nutrition-analysis-tab" style="display: none;">
+                        <!-- Complete nutrition analysis -->
+                    </div>
+                    <div class="tab-content" id="recipes-tab" style="display: none;">
+                        <!-- Recipes and preparation methods -->
+                    </div>
+                    <div class="tab-content" id="grocery-list-tab" style="display: none;">
+                        <!-- Grocery list -->
+                    </div>
+                    <div class="tab-content" id="storage-guide-tab" style="display: none;">
+                        <!-- Storage guidelines -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nutrition Info Modal -->
+        <div class="modal" id="nutritionInfoModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <i class="fas fa-atom"></i>
+                        <div>
+                            <h2>Complete Nutrition Tracking</h2>
+                            <p>All vitamins, minerals & macronutrients analyzed</p>
+                        </div>
+                    </div>
+                    <button class="close-btn" onclick="closeNutritionInfo()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="nutrition-categories">
+                        <div class="nutrition-category">
+                            <h3><i class="fas fa-dumbbell"></i> Macronutrients</h3>
+                            <div class="nutrient-list">
+                                <span class="nutrient-item">Proteins</span>
+                                <span class="nutrient-item">Carbohydrates</span>
+                                <span class="nutrient-item">Fats</span>
+                                <span class="nutrient-item">Fiber</span>
+                            </div>
+                        </div>
+                        <div class="nutrition-category">
+                            <h3><i class="fas fa-pills"></i> Vitamins</h3>
+                            <div class="nutrient-list">
+                                <span class="nutrient-item">Vitamin A</span>
+                                <span class="nutrient-item">Vitamin B Complex</span>
+                                <span class="nutrient-item">Vitamin C</span>
+                                <span class="nutrient-item">Vitamin D</span>
+                                <span class="nutrient-item">Vitamin E</span>
+                                <span class="nutrient-item">Vitamin K</span>
+                            </div>
+                        </div>
+                        <div class="nutrition-category">
+                            <h3><i class="fas fa-gem"></i> Minerals</h3>
+                            <div class="nutrient-list">
+                                <span class="nutrient-item">Iron</span>
+                                <span class="nutrient-item">Calcium</span>
+                                <span class="nutrient-item">Magnesium</span>
+                                <span class="nutrient-item">Zinc</span>
+                                <span class="nutrient-item">Potassium</span>
+                                <span class="nutrient-item">Phosphorus</span>
+                                <span class="nutrient-item">Selenium</span>
+                                <span class="nutrient-item">Manganese</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seasonal Info Modal -->
+        <div class="modal" id="seasonalInfoModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <h2>Seasonal Food Recommendations</h2>
+                            <p>Perfect foods for each season based on health benefits</p>
+                        </div>
+                    </div>
+                    <button class="close-btn" onclick="closeSeasonalInfo()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="seasonal-grid">
+                        <div class="season-card spring">
+                            <i class="fas fa-seedling season-icon"></i>
+                            <h3>Spring (March-May)</h3>
+                            <p>Fresh leafy greens, citrus fruits, seasonal vegetables for detox and immunity</p>
+                            <div class="season-foods">Spinach, Methi, Oranges, Amla</div>
+                        </div>
+                        <div class="season-card summer">
+                            <i class="fas fa-sun season-icon"></i>
+                            <h3>Summer (June-August)</h3>
+                            <p>Cooling foods, hydrating fruits, light meals to beat the heat</p>
+                            <div class="season-foods">Watermelon, Cucumber, Mint, Coconut</div>
+                        </div>
+                        <div class="season-card monsoon">
+                            <i class="fas fa-cloud-rain season-icon"></i>
+                            <h3>Monsoon (September-October)</h3>
+                            <p>Immunity boosting foods, warm spices, digestive aids</p>
+                            <div class="season-foods">Ginger, Turmeric, Millets, Dry fruits</div>
+                        </div>
+                        <div class="season-card winter">
+                            <i class="fas fa-snowflake season-icon"></i>
+                            <h3>Winter (November-February)</h3>
+                            <p>Warming foods, rich nutrients, seasonal dry fruits and vegetables</p>
+                            <div class="season-foods">Dates, Almonds, Root vegetables, Ghee</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Info Modal -->
+        <div class="modal" id="healthInfoModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <h2>Health Conditions We Support</h2>
+                            <p>Safe food recommendations for common health issues</p>
+                        </div>
+                    </div>
+                    <button class="close-btn" onclick="closeHealthInfo()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="health-conditions-grid">
+                        <div class="condition-card">
+                            <i class="fas fa-tint condition-icon diabetes"></i>
+                            <h3>Diabetes</h3>
+                            <p>Low glycemic index foods, controlled carbohydrates</p>
+                        </div>
+                        <div class="condition-card">
+                            <i class="fas fa-heart condition-icon heart"></i>
+                            <h3>Hypertension</h3>
+                            <p>Low sodium, heart-healthy options</p>
+                        </div>
+                        <div class="condition-card">
+                            <i class="fas fa-kidney condition-icon kidney"></i>
+                            <h3>Kidney Stones</h3>
+                            <p>Calcium-oxalate controlled diet plans</p>
+                        </div>
+                        <div class="condition-card">
+                            <i class="fas fa-allergies condition-icon allergy"></i>
+                            <h3>Food Allergies</h3>
+                            <p>Nut, egg, dairy, and gluten-free alternatives</p>
+                        </div>
+                        <div class="condition-card">
+                            <i class="fas fa-heartbeat condition-icon heart-disease"></i>
+                            <h3>Heart Disease</h3>
+                            <p>Cholesterol-conscious, omega-3 rich foods</p>
+                        </div>
+                        <div class="condition-card">
+                            <i class="fas fa-wheat condition-icon gluten"></i>
+                            <h3>Gluten Intolerance</h3>
+                            <p>Gluten-free grains and alternatives</p>
+                        </div>
+                    </div>
+                    <div class="health-disclaimer">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Disclaimer:</strong> Our recommendations are for general wellness. Always consult healthcare professionals for specific medical dietary needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Container -->
+        <div id="notificationContainer" class="notification-container">
+            <!-- Notifications will be dynamically added here -->
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+    <script>
+        // Enhanced voice recognition setup
+        let recognition = null;
+        let isListening = false;
+
+        // Initialize speech recognition if available
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                isListening = true;
+                document.getElementById('voiceBtn').innerHTML = '<i class="fas fa-stop"></i>';
+                document.getElementById('voiceBtn').classList.add('listening');
+                document.getElementById('voiceStatus').style.display = 'flex';
+            };
+
+            recognition.onend = function() {
+                isListening = false;
+                document.getElementById('voiceBtn').innerHTML = '<i class="fas fa-microphone"></i>';
+                document.getElementById('voiceBtn').classList.remove('listening');
+                document.getElementById('voiceStatus').style.display = 'none';
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('messageInput').value = transcript;
+                showNotification('Voice input captured: "' + transcript + '"', 'success');
+            };
+
+            recognition.onerror = function(event) {
+                showNotification('Voice recognition error: ' + event.error, 'error');
+                isListening = false;
+                document.getElementById('voiceBtn').innerHTML = '<i class="fas fa-microphone"></i>';
+                document.getElementById('voiceBtn').classList.remove('listening');
+                document.getElementById('voiceStatus').style.display = 'none';
+            };
+        }
+
+        // Voice button click handler
+        document.getElementById('voiceBtn').addEventListener('click', function() {
+            if (!recognition) {
+                showNotification('Voice recognition not supported in this browser', 'error');
+                return;
+            }
+
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        });
+
+        // Enhanced modal functions
+        function showNutritionInfo() {
+            document.getElementById('nutritionInfoModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeNutritionInfo() {
+            document.getElementById('nutritionInfoModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function showSeasonalInfo() {
+            document.getElementById('seasonalInfoModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeSeasonalInfo() {
+            document.getElementById('seasonalInfoModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        function showHealthInfo() {
+            document.getElementById('healthInfoModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeHealthInfo() {
+            document.getElementById('healthInfoModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Enhanced tab functionality for diet plan modal
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.style.display = 'none');
+            
+            // Remove active class from all tab buttons
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').style.display = 'block';
+            
+            // Add active class to clicked button
+            event.target.closest('.tab-btn').classList.add('active');
+        }
+
+        // Enhanced download function
+        function downloadCompletePlan() {
+            showNotification('Complete nutrition plan downloaded!', 'success');
+            // Implementation would generate PDF with all tabs data
+        }
+        
+        function sharePlan() {
+            if (navigator.share && chatbot.lastPlanData) {
+                navigator.share({
+                    title: 'My Complete Nutrition Plan',
+                    text: 'Check out my AI-generated diet plan with complete nutrition analysis!',
+                    url: window.location.href
+                });
+            } else {
+                showNotification('Diet plan copied to clipboard!', 'success');
+                // Copy functionality would be implemented here
+            }
+        }
+        
+        // Enhanced input suggestions with new options
+        function showInputSuggestions(step) {
+            const suggestions = document.getElementById('inputSuggestions');
+            const suggestionMap = {
+                'food_style': ['traditional', 'modern', 'both'],
+                'diet_type': ['vegetarian', 'non-vegetarian', 'combination'],
+                'season': ['spring', 'summer', 'monsoon', 'winter', 'current season'],
+                'health_conditions': ['1,2', '3,7', 'none', '1,5,7'],
+                'cost_preference': ['low cost', 'medium cost', 'high cost'],
+                'region': ['south indian', 'north indian', 'east indian', 'west indian'],
+                'goal': ['weight loss', 'weight gain', 'maintain weight', 'muscle gain']
+            };
+            
+            if (suggestionMap[step]) {
+                suggestions.innerHTML = suggestionMap[step].map(s => 
+                    `<span class="suggestion-chip" onclick="fillSuggestion('${s}')">${s}</span>`
+                ).join('');
+                suggestions.style.display = 'flex';
+            } else {
+                suggestions.style.display = 'none';
+            }
+        }
+        
+        function fillSuggestion(value) {
+            document.getElementById('messageInput').value = value;
+            document.getElementById('inputSuggestions').style.display = 'none';
+        }
+
+        // Enhanced loading messages
+        const loadingMessages = [
+            'Analyzing complete nutrition profile...',
+            'Finding seasonal food matches...',
+            'Calculating vitamin & mineral content...',
+            'Generating traditional recipes...',
+            'Preparing storage guidelines...',
+            'Creating grocery lists...',
+            'Finalizing your personalized plan...'
+        ];
+
+        function updateLoadingMessage() {
+            const subtitle = document.getElementById('loadingSubtitle');
+            if (subtitle) {
+                const randomMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+                subtitle.textContent = randomMessage;
+            }
+        }
+
+        // Update loading message every 2 seconds when loading
+        setInterval(() => {
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            if (loadingIndicator && loadingIndicator.style.display !== 'none') {
+                updateLoadingMessage();
+            }
+        }, 2000);
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            const modals = ['dietPlanModal', 'healthInfoModal', 'nutritionInfoModal', 'seasonalInfoModal'];
+            
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Enhanced notification system
+        function showNotification(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icon = type === 'success' ? 'check-circle' : 
+                        type === 'error' ? 'exclamation-circle' : 
+                        type === 'warning' ? 'exclamation-triangle' : 'info-circle';
+            
+            notification.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            
+            container.appendChild(notification);
+            
+            // Auto remove after duration
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, duration);
+        }
+
+        // Initialize enhanced features on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for voice recognition support
+            if (!recognition) {
+                document.getElementById('voiceBtn').style.display = 'none';
+                console.log('Voice recognition not supported');
+            }
+            
+            // Get current season and show in features
+            const currentSeason = getCurrentSeason();
+            updateSeasonalFeatures(currentSeason);
+        });
+
+        // Helper function to get current season
+        function getCurrentSeason() {
+            const month = new Date().getMonth();
+            if (month >= 2 && month <= 4) return 'spring';
+            if (month >= 5 && month <= 7) return 'summer';
+            if (month >= 8 && month <= 9) return 'monsoon';
+            return 'winter';
+        }
+
+        // Update seasonal features based on current season
+        function updateSeasonalFeatures(season) {
+            const seasonalTexts = {
+                spring: 'Perfect for detox and fresh greens',
+                summer: 'Cooling foods for hot weather',
+                monsoon: 'Immunity boosters for rainy season',
+                winter: 'Warming foods for cold weather'
+            };
+            
+            // Update any seasonal text in the UI
+            const seasonalElements = document.querySelectorAll('.seasonal-hint');
+            seasonalElements.forEach(el => {
+                el.textContent = seasonalTexts[season] || 'Seasonal recommendations available';
+            });
+        }
+    </script>
+
+    <style>
+        /* Additional CSS for new features */
+        .voice-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 8px;
+            margin-right: 8px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn:hover {
+            background-color: #f0f0f0;
+            color: #2196F3;
+        }
+
+        .voice-btn.listening {
+            background-color: #f44336;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        .voice-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .voice-indicator {
+            display: flex;
+            gap: 3px;
+        }
+
+        .voice-wave {
+            width: 3px;
+            height: 20px;
+            background: white;
+            border-radius: 2px;
+            animation: wave 1.2s ease-in-out infinite;
+        }
+
+        .voice-wave:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .voice-wave:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes wave {
+            0%, 60%, 100% {
+                transform: scaleY(0.5);
+            }
+            30% {
+                transform: scaleY(1);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(244, 67, 54, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(244, 67, 54, 0);
+            }
+        }
+
+        .enhanced-modal {
+            max-width: 1200px;
+            width: 95vw;
+            max-height: 90vh;
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: 5px;
+            margin-left: auto;
+            margin-right: 20px;
+        }
+
+        .tab-btn {
+            background: #f5f5f5;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tab-btn.active {
+            background: #2196F3;
+            color: white;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #e0e0e0;
+        }
+
+        .nutrition-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .nutrition-category h3 {
+            color: #2196F3;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nutrient-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .nutrient-item {
+            background: #f0f8ff;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            border: 1px solid #e3f2fd;
+        }
+
+        .seasonal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .season-card {
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .season-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .season-card.spring {
+            background: linear-gradient(135deg, #a8e6cf, #dcedc8);
+        }
+
+        .season-card.summer {
+            background: linear-gradient(135deg, #ffd54f, #ffeb3b);
+        }
+
+        .season-card.monsoon {
+            background: linear-gradient(135deg, #81c784, #a5d6a7);
+        }
+
+        .season-card.winter {
+            background: linear-gradient(135deg, #90caf9, #bbdefb);
+        }
+
+        .season-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .season-foods {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-style: italic;
+            color: #555;
+        }
+
+        .tab-content {
+            padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notification {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.success {
+            border-left: 4px solid #4caf50;
+        }
+
+        .notification.error {
+            border-left: 4px solid #f44336;
+        }
+
+        .notification.warning {
+            border-left: 4px solid #ff9800;
+        }
+
+        .notification.info {
+            border-left: 4px solid #2196f3;
+        }
+
+        .notification i {
+            font-size: 20px;
+        }
+
+        .notification.success i {
+            color: #4caf50;
+        }
+
+        .notification.error i {
+            color: #f44336;
+        }
+
+        .notification.warning i {
+            color: #ff9800;
+        }
+
+        .notification.info i {
+            color: #2196f3;
+        }
+
+        .notification button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            margin-left: auto;
+            padding: 5px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-suggestions {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .suggestion-chip {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-chip:hover {
+            background: #2196f3;
+            color: white;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .modal-tabs {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .tab-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .enhanced-modal {
+                width: 98vw;
+                max-height: 95vh;
+            }
+
+            .seasonal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nutrition-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .voice-status {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .notification {
+                min-width: 250px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</body>
+</html>
