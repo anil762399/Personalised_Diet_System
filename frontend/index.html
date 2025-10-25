@@ -10,7 +10,6 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Header -->
         <header class="header">
             <div class="header-content">
                 <div class="logo">
@@ -38,10 +37,10 @@
             </div>
         </header>
 
-        <!-- Chat Container -->
+    
         <div class="chat-container">
             <div class="chat-messages" id="chatMessages">
-                <!-- Enhanced Welcome message -->
+                
                 <div class="message bot-message">
                     <div class="message-avatar">
                         <i class="fas fa-robot"></i>
@@ -117,7 +116,7 @@
                 </div>
             </div>
 
-            <!-- Enhanced Input Area -->
+            
             <div class="input-area">
                 <div class="input-container">
                     <div class="input-wrapper">
@@ -131,7 +130,7 @@
                             <i class="fas fa-microphone"></i>
                         </button>
                         <div class="input-suggestions" id="inputSuggestions" style="display: none;">
-                            <!-- Dynamic suggestions will appear here -->
+                            
                         </div>
                     </div>
                     <button id="sendBtn" class="send-btn" disabled>
@@ -158,7 +157,6 @@
             </div>
         </div>
 
-        <!-- Enhanced Loading Indicator -->
         <div class="loading-indicator" id="loadingIndicator">
             <div class="loading-content">
                 <div class="loading-spinner">
@@ -173,7 +171,6 @@
             </div>
         </div>
 
-        <!-- Enhanced Diet Plan Modal -->
         <div class="modal" id="dietPlanModal">
             <div class="modal-content enhanced-modal">
                 <div class="modal-header">
@@ -215,25 +212,24 @@
                 </div>
                 <div class="modal-body" id="dietPlanContent">
                     <div class="tab-content" id="meal-plan-tab">
-                        <!-- Meal plan content -->
+                       
                     </div>
                     <div class="tab-content" id="nutrition-analysis-tab" style="display: none;">
-                        <!-- Complete nutrition analysis -->
+                        
                     </div>
                     <div class="tab-content" id="recipes-tab" style="display: none;">
-                        <!-- Recipes and preparation methods -->
+                        
                     </div>
                     <div class="tab-content" id="grocery-list-tab" style="display: none;">
-                        <!-- Grocery list -->
+                        
                     </div>
                     <div class="tab-content" id="storage-guide-tab" style="display: none;">
-                        <!-- Storage guidelines -->
+                        
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Nutrition Info Modal -->
         <div class="modal" id="nutritionInfoModal" style="display: none;">
             <div class="modal-content">
                 <div class="modal-header">
@@ -288,7 +284,7 @@
             </div>
         </div>
 
-        <!-- Seasonal Info Modal -->
+        
         <div class="modal" id="seasonalInfoModal" style="display: none;">
             <div class="modal-content">
                 <div class="modal-header">
@@ -334,7 +330,6 @@
             </div>
         </div>
 
-        <!-- Health Info Modal -->
         <div class="modal" id="healthInfoModal" style="display: none;">
             <div class="modal-content">
                 <div class="modal-header">
@@ -390,19 +385,19 @@
             </div>
         </div>
 
-        <!-- Notification Container -->
+        
         <div id="notificationContainer" class="notification-container">
-            <!-- Notifications will be dynamically added here -->
+           
         </div>
     </div>
 
     <script src="./script.js"></script>
     <script>
-        // Enhanced voice recognition setup
+        
         let recognition = null;
         let isListening = false;
 
-        // Initialize speech recognition if available
+        
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             recognition = new SpeechRecognition();
@@ -439,7 +434,7 @@
             };
         }
 
-        // Voice button click handler
+      
         document.getElementById('voiceBtn').addEventListener('click', function() {
             if (!recognition) {
                 showNotification('Voice recognition not supported in this browser', 'error');
@@ -453,7 +448,6 @@
             }
         });
 
-        // Enhanced modal functions
         function showNutritionInfo() {
             document.getElementById('nutritionInfoModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -484,27 +478,25 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Enhanced tab functionality for diet plan modal
+        
         function showTab(tabName) {
-            // Hide all tab contents
+            
             const tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(content => content.style.display = 'none');
             
-            // Remove active class from all tab buttons
+            
             const tabBtns = document.querySelectorAll('.tab-btn');
             tabBtns.forEach(btn => btn.classList.remove('active'));
             
-            // Show selected tab content
             document.getElementById(tabName + '-tab').style.display = 'block';
             
-            // Add active class to clicked button
+            
             event.target.closest('.tab-btn').classList.add('active');
         }
 
-        // Enhanced download function
         function downloadCompletePlan() {
             showNotification('Complete nutrition plan downloaded!', 'success');
-            // Implementation would generate PDF with all tabs data
+            
         }
         
         function sharePlan() {
@@ -516,11 +508,11 @@
                 });
             } else {
                 showNotification('Diet plan copied to clipboard!', 'success');
-                // Copy functionality would be implemented here
+                
             }
         }
         
-        // Enhanced input suggestions with new options
+        
         function showInputSuggestions(step) {
             const suggestions = document.getElementById('inputSuggestions');
             const suggestionMap = {
@@ -548,7 +540,7 @@
             document.getElementById('inputSuggestions').style.display = 'none';
         }
 
-        // Enhanced loading messages
+        
         const loadingMessages = [
             'Analyzing complete nutrition profile...',
             'Finding seasonal food matches...',
@@ -567,7 +559,7 @@
             }
         }
 
-        // Update loading message every 2 seconds when loading
+        
         setInterval(() => {
             const loadingIndicator = document.getElementById('loadingIndicator');
             if (loadingIndicator && loadingIndicator.style.display !== 'none') {
@@ -575,7 +567,7 @@
             }
         }, 2000);
         
-        // Close modals when clicking outside
+        
         window.addEventListener('click', (e) => {
             const modals = ['dietPlanModal', 'healthInfoModal', 'nutritionInfoModal', 'seasonalInfoModal'];
             
@@ -588,7 +580,7 @@
             });
         });
 
-        // Enhanced notification system
+        
         function showNotification(message, type = 'info', duration = 3000) {
             const container = document.getElementById('notificationContainer');
             const notification = document.createElement('div');
@@ -606,7 +598,7 @@
             
             container.appendChild(notification);
             
-            // Auto remove after duration
+            
             setTimeout(() => {
                 if (notification.parentElement) {
                     notification.remove();
@@ -614,20 +606,18 @@
             }, duration);
         }
 
-        // Initialize enhanced features on page load
+      
         document.addEventListener('DOMContentLoaded', function() {
-            // Check for voice recognition support
+         
             if (!recognition) {
                 document.getElementById('voiceBtn').style.display = 'none';
                 console.log('Voice recognition not supported');
             }
             
-            // Get current season and show in features
             const currentSeason = getCurrentSeason();
             updateSeasonalFeatures(currentSeason);
         });
 
-        // Helper function to get current season
         function getCurrentSeason() {
             const month = new Date().getMonth();
             if (month >= 2 && month <= 4) return 'spring';
@@ -636,7 +626,7 @@
             return 'winter';
         }
 
-        // Update seasonal features based on current season
+        
         function updateSeasonalFeatures(season) {
             const seasonalTexts = {
                 spring: 'Perfect for detox and fresh greens',
@@ -645,7 +635,7 @@
                 winter: 'Warming foods for cold weather'
             };
             
-            // Update any seasonal text in the UI
+            
             const seasonalElements = document.querySelectorAll('.seasonal-hint');
             seasonalElements.forEach(el => {
                 el.textContent = seasonalTexts[season] || 'Seasonal recommendations available';
@@ -654,7 +644,7 @@
     </script>
 
     <style>
-        /* Additional CSS for new features */
+        
         .voice-btn {
             background: none;
             border: none;
@@ -970,7 +960,7 @@
             color: white;
         }
 
-        /* Responsive improvements */
+       
         @media (max-width: 768px) {
             .modal-tabs {
                 flex-wrap: wrap;
@@ -1008,3 +998,4 @@
     </style>
 </body>
 </html>
+

@@ -1,15 +1,8 @@
-"""
-Enhanced Flask backend for Diet Chatbot with Complete Nutrition, Voice Input, and Seasonal Features
-"""
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-from werkzeug.security import generate_password_hash, check_password_hash
-import sqlite3
 import json
 import traceback
-import uuid
 from datetime import datetime
-from functools import wraps
 import os
 import speech_recognition as sr
 import io
@@ -20,7 +13,7 @@ from models.nutrition import NutritionCalculator
 from models.diet_engine import DietEngine
 
 app = Flask(__name__)
-# FIXED: Updated CORS configuration to include port 5501 and 3000 (common React ports)
+# CORS configuration
 CORS(app, supports_credentials=True, origins=[
     "http://127.0.0.1:5501", 
     "http://localhost:5501",
@@ -29,7 +22,6 @@ CORS(app, supports_credentials=True, origins=[
     "http://127.0.0.1:8000",
     "http://localhost:8000"
 ])
-app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-here-change-in-production')
 
 # Initialize our engines
 nutrition_calc = NutritionCalculator()
@@ -38,122 +30,33 @@ diet_engine = DietEngine()
 # Initialize speech recognition
 recognizer = sr.Recognizer()
 
-# Database setup
-def init_db():
-    """Initialize the database with required tables"""
-    conn = sqlite3.connect('diet_chatbot.db')
-    cursor = conn.cursor()
-    
-    # Users table
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            email TEXT UNIQUE NOT NULL,
-            password_hash TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
-    
-    # Enhanced Chats table with new fields
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS chats (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            chat_id TEXT UNIQUE NOT NULL,
-            user_id INTEGER NOT NULL,
-            title TEXT NOT NULL,
-            step TEXT DEFAULT 'greeting',
-            user_data TEXT DEFAULT '{}',
-            plan_data TEXT DEFAULT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users (id)
-        )
-    ''')
-    
-    # Messages table
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS messages (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            chat_id TEXT NOT NULL,
-            sender TEXT NOT NULL,
-            content TEXT NOT NULL,
-            message_type TEXT DEFAULT 'text',
-            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (chat_id) REFERENCES chats (chat_id)
-        )
-    ''')
-    
-    # Add new columns if they don't exist
-    try:
-        cursor.execute('ALTER TABLE messages ADD COLUMN message_type TEXT DEFAULT "text"')
-        conn.commit()
-    except sqlite3.OperationalError:
-        pass  # Column already exists
-    
-    conn.commit()
-    conn.close()
+# In-memory session storage (simple dict)
+sessions = {}
 
-# Initialize database on startup
-init_db()
+def get_or_create_session(session_id):
+    """Get or create a session"""
+    if session_id not in sessions:
+        sessions[session_id] = {
+            'step': 'greeting',
+            'data': {}
+        }
+    return sessions[session_id]
 
-def require_auth(f):
-    """Decorator to require authentication"""
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'user_id' not in session:
-            return jsonify({'error': 'Authentication required', 'authenticated': False}), 401
-        return f(*args, **kwargs)
-    return decorated_function
+@app.route('/')
+def home():
+    return jsonify({"message": "Diet Chatbot API is running!", "status": "success"})
 
-def get_db_connection():
-    """Get database connection"""
-    conn = sqlite3.connect('diet_chatbot.db')
-    conn.row_factory = sqlite3.Row
-    return conn
-
-# FIXED: Make chat endpoint work without authentication for testing
 @app.route('/api/chat', methods=['POST'])
 def chat():
-    """Enhanced main chat endpoint with all new features"""
+    """Main chat endpoint"""
     try:
         data = request.get_json()
-        chat_id = data.get('chat_id')
+        session_id = data.get('session_id', 'default_session')
         message = data.get('message', '')
         message_type = data.get('message_type', 'text')  # text, voice
         
-        # FIXED: Create a default user session if not authenticated (for testing)
-        if 'user_id' not in session:
-            # Create or get a default test user
-            conn = get_db_connection()
-            user = conn.execute('SELECT * FROM users WHERE username = ?', ('test_user',)).fetchone()
-            if not user:
-                # Create test user
-                password_hash = generate_password_hash('test123')
-                cursor = conn.execute(
-                    'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
-                    ('test_user', 'test@example.com', password_hash)
-                )
-                user_id = cursor.lastrowid
-                conn.commit()
-            else:
-                user_id = user['id']
-            conn.close()
-            
-            # Set session
-            session['user_id'] = user_id
-            session['username'] = 'test_user'
-        
-        if not chat_id:
-            # Create a new chat if no chat_id provided
-            chat_id = str(uuid.uuid4())
-            conn = get_db_connection()
-            conn.execute('''
-                INSERT INTO chats (chat_id, user_id, title, step, user_data)
-                VALUES (?, ?, ?, ?, ?)
-            ''', (chat_id, session['user_id'], 'New Conversation', 'greeting', '{}'))
-            conn.commit()
-            conn.close()
+        # Get or create session
+        session_data = get_or_create_session(session_id)
         
         # Handle both string and number inputs
         if isinstance(message, (int, float)):
@@ -161,72 +64,14 @@ def chat():
         else:
             message = str(message).strip().lower()
         
-        conn = get_db_connection()
-        
-        # Get or create chat
-        chat = conn.execute('''
-            SELECT * FROM chats 
-            WHERE chat_id = ? AND user_id = ?
-        ''', (chat_id, session['user_id'])).fetchone()
-        
-        if not chat:
-            # Create the chat if it doesn't exist
-            conn.execute('''
-                INSERT INTO chats (chat_id, user_id, title, step, user_data)
-                VALUES (?, ?, ?, ?, ?)
-            ''', (chat_id, session['user_id'], 'New Conversation', 'greeting', '{}'))
-            conn.commit()
-            chat = conn.execute('''
-                SELECT * FROM chats 
-                WHERE chat_id = ? AND user_id = ?
-            ''', (chat_id, session['user_id'])).fetchone()
-        
-        # Create session-like data structure
-        session_data = {
-            'step': chat['step'],
-            'data': json.loads(chat['user_data'] or '{}')
-        }
-        
-        # Save user message
-        conn.execute('''
-            INSERT INTO messages (chat_id, sender, content, message_type)
-            VALUES (?, ?, ?, ?)
-        ''', (chat_id, 'user', data.get('message', ''), message_type))
-        
-        # Process enhanced conversation
+        # Process conversation
         response = process_enhanced_conversation(session_data, message)
         
-        # Save bot response
-        conn.execute('''
-            INSERT INTO messages (chat_id, sender, content)
-            VALUES (?, ?, ?)
-        ''', (chat_id, 'bot', response['message']))
+        # Update session
+        sessions[session_id] = session_data
         
-        # Update chat
-        plan_data = None
-        title = chat['title']
-        
-        if response['step'] == 'completed' and 'data' in response:
-            plan_data = json.dumps(response['data'])
-            # Generate a better title based on the user's goal
-            user_data = session_data['data']
-            if user_data.get('goal'):
-                title = f"{user_data['goal'].replace('_', ' ').title()} Plan - {user_data.get('food_preference', 'Diet').title()}"
-        elif response['step'] != 'greeting' and session_data['data'].get('goal'):
-            # Update title with goal if we have it
-            title = f"{session_data['data']['goal'].replace('_', ' ').title()} Planning..."
-        
-        conn.execute('''
-            UPDATE chats 
-            SET step = ?, user_data = ?, plan_data = ?, title = ?, updated_at = CURRENT_TIMESTAMP
-            WHERE chat_id = ?
-        ''', (response['step'], json.dumps(session_data['data']), plan_data, title, chat_id))
-        
-        conn.commit()
-        conn.close()
-        
-        # Add chat_id to response
-        response['chat_id'] = chat_id
+        # Add session_id to response
+        response['session_id'] = session_id
         
         return jsonify(response)
         
@@ -238,40 +83,18 @@ def chat():
             "status": "error"
         }), 500
 
-# FIXED: Make reset endpoint work without authentication for testing
 @app.route('/api/reset', methods=['POST'])
 def reset_session():
     """Reset chat session"""
     try:
         data = request.get_json()
-        chat_id = data.get('chat_id')
+        session_id = data.get('session_id', 'default_session')
         
-        # FIXED: Create session if not exists
-        if 'user_id' not in session:
-            conn = get_db_connection()
-            user = conn.execute('SELECT * FROM users WHERE username = ?', ('test_user',)).fetchone()
-            if user:
-                session['user_id'] = user['id']
-                session['username'] = 'test_user'
-            conn.close()
-        
-        if not chat_id:
-            return jsonify({'error': 'Chat ID is required', 'status': 'error'}), 400
-        
-        conn = get_db_connection()
-        
-        # Reset chat to greeting state
-        conn.execute('''
-            UPDATE chats 
-            SET step = 'greeting', user_data = '{}', plan_data = NULL, updated_at = CURRENT_TIMESTAMP
-            WHERE chat_id = ? AND user_id = ?
-        ''', (chat_id, session.get('user_id')))
-        
-        # Delete all messages for this chat
-        conn.execute('DELETE FROM messages WHERE chat_id = ?', (chat_id,))
-        
-        conn.commit()
-        conn.close()
+        # Reset session
+        sessions[session_id] = {
+            'step': 'greeting',
+            'data': {}
+        }
         
         return jsonify({
             "message": "Session reset successfully!",
@@ -284,9 +107,8 @@ def reset_session():
             "status": "error"
         }), 500
 
-# NEW: Voice Input Processing Endpoint
+# Voice Input Processing Endpoint
 @app.route('/api/process-voice', methods=['POST'])
-@require_auth
 def process_voice():
     """Process voice input from user"""
     try:
@@ -327,7 +149,7 @@ def process_voice():
             'error': 'Voice processing failed'
         }), 500
 
-# NEW: Get Current Season based on date and location
+# Get Current Season based on date and location
 @app.route('/api/current-season', methods=['GET'])
 def get_current_season():
     """Get current season based on date and location"""
@@ -384,7 +206,7 @@ def get_season_info(season):
     }
     return season_data.get(season, {})
 
-# NEW: Enhanced Food Categories Endpoint
+# Enhanced Food Categories Endpoint
 @app.route('/api/food-categories', methods=['GET'])
 def get_food_categories():
     """Get available food categories with detailed options"""
@@ -419,173 +241,110 @@ def get_food_categories():
             'error': str(e)
         }), 500
 
-# Keep all existing authentication routes
-@app.route('/')
-def home():
-    return jsonify({"message": "Enhanced Diet Chatbot API is running!", "status": "success"})
-
-@app.route('/api/register', methods=['POST'])
-def register():
-    """User registration"""
+# Enhanced nutrition calculation endpoint
+@app.route('/api/nutrition', methods=['POST'])
+def calculate_nutrition():
+    """Enhanced nutrition calculation endpoint"""
     try:
         data = request.get_json()
-        username = data.get('username', '').strip()
-        email = data.get('email', '').strip()
-        password = data.get('password', '')
         
-        if not username or not email or not password:
-            return jsonify({'error': 'All fields are required', 'success': False}), 400
-        
-        if len(username) < 3:
-            return jsonify({'error': 'Username must be at least 3 characters', 'success': False}), 400
-        
-        if len(password) < 6:
-            return jsonify({'error': 'Password must be at least 6 characters', 'success': False}), 400
-        
-        conn = get_db_connection()
-        
-        # Check if username or email already exists
-        existing_user = conn.execute(
-            'SELECT id FROM users WHERE username = ? OR email = ?', 
-            (username, email)
-        ).fetchone()
-        
-        if existing_user:
-            conn.close()
-            return jsonify({'error': 'Username or email already exists', 'success': False}), 400
-        
-        # Create new user
-        password_hash = generate_password_hash(password)
-        cursor = conn.execute(
-            'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
-            (username, email, password_hash)
+        nutrition_summary = nutrition_calc.get_enhanced_nutrition_summary(
+            data['weight'],
+            data['height'],
+            data['age'],
+            data['gender'],
+            data['goal'],
+            data.get('timeline', 'short_term')
         )
-        user_id = cursor.lastrowid
-        conn.commit()
-        conn.close()
-        
-        # Set session
-        session['user_id'] = user_id
-        session['username'] = username
         
         return jsonify({
-            'success': True,
-            'user': {'id': user_id, 'username': username, 'email': email}
+            "nutrition_summary": nutrition_summary,
+            "status": "success"
         })
         
     except Exception as e:
-        print(f"Registration error: {str(e)}")
-        return jsonify({'error': 'Registration failed', 'success': False}), 500
+        return jsonify({
+            "error": str(e),
+            "status": "error"
+        }), 500
 
-@app.route('/api/login', methods=['POST'])
-def login():
-    """User login"""
+@app.route('/api/meal-plan', methods=['POST'])
+def generate_meal_plan():
+    """Enhanced meal plan generation endpoint"""
     try:
         data = request.get_json()
-        username_or_email = data.get('username') or data.get('email', '').strip()
-        password = data.get('password', '')
         
-        if not username_or_email or not password:
-            return jsonify({'error': 'Username/email and password are required', 'success': False}), 400
+        # Calculate enhanced nutrition first
+        nutrition_summary = nutrition_calc.get_enhanced_nutrition_summary(
+            data['weight'],
+            data['height'],
+            data['age'],
+            data['gender'],
+            data['goal'],
+            data.get('timeline', 'short_term')
+        )
         
-        conn = get_db_connection()
-        user = conn.execute(
-            'SELECT * FROM users WHERE username = ? OR email = ?',
-            (username_or_email, username_or_email)
-        ).fetchone()
-        conn.close()
+        # Generate enhanced meal plan
+        weekly_plan = diet_engine.generate_enhanced_weekly_plan(
+            data, 
+            nutrition_summary,
+            health_conditions=data.get('health_conditions', []),
+            cost_preference=data.get('cost_preference', 'medium'),
+            food_style=data.get('food_style', 'both'),
+            current_season=data.get('current_season', 'spring')
+        )
         
-        if user and check_password_hash(user['password_hash'], password):
-            session['user_id'] = user['id']
-            session['username'] = user['username']
-            
-            return jsonify({
-                'success': True,
-                'user': {'id': user['id'], 'username': user['username'], 'email': user['email']}
-            })
-        else:
-            return jsonify({'error': 'Invalid credentials', 'success': False}), 401
-            
+        recommendations = diet_engine.get_enhanced_health_recommendations(
+            data, 
+            nutrition_summary,
+            health_conditions=data.get('health_conditions', [])
+        )
+        
+        grocery_list = diet_engine.generate_grocery_list(weekly_plan)
+        
+        return jsonify({
+            "nutrition_summary": nutrition_summary,
+            "weekly_plan": weekly_plan,
+            "recommendations": recommendations,
+            "grocery_list": grocery_list,
+            "status": "success"
+        })
+        
     except Exception as e:
-        print(f"Login error: {str(e)}")
-        return jsonify({'error': 'Login failed', 'success': False}), 500
+        return jsonify({
+            "error": str(e),
+            "status": "error"
+        }), 500
 
-@app.route('/api/logout', methods=['POST'])
-def logout():
-    """User logout"""
-    session.clear()
-    return jsonify({'success': True, 'message': 'Logged out successfully'})
-
-@app.route('/api/check-auth', methods=['GET'])
-def check_auth():
-    """Check authentication status"""
-    if 'user_id' in session:
-        conn = get_db_connection()
-        user = conn.execute('SELECT id, username, email FROM users WHERE id = ?', (session['user_id'],)).fetchone()
-        conn.close()
-        
-        if user:
-            return jsonify({
-                'authenticated': True,
-                'user': {'id': user['id'], 'username': user['username'], 'email': user['email']}
-            })
-    
-    return jsonify({'authenticated': False}), 401
-
-# Keep existing chat management routes (shortened for space, but include all)
-@app.route('/api/chats', methods=['GET'])
-@require_auth
-def get_chats():
-    """Get user's chat history"""
+@app.route('/api/health-conditions', methods=['GET'])
+def get_health_conditions():
+    """Get list of available health conditions"""
     try:
-        conn = get_db_connection()
-        chats = conn.execute('''
-            SELECT chat_id, title, step, created_at, updated_at 
-            FROM chats 
-            WHERE user_id = ? 
-            ORDER BY updated_at DESC
-        ''', (session['user_id'],)).fetchall()
-        conn.close()
+        conditions = [
+            {"id": 1, "name": "Diabetes", "code": "diabetes"},
+            {"id": 2, "name": "Hypertension (High BP)", "code": "hypertension"},
+            {"id": 3, "name": "Kidney Stones", "code": "kidney_stones"},
+            {"id": 4, "name": "Heart Disease", "code": "heart_disease"},
+            {"id": 5, "name": "Lactose Intolerance", "code": "lactose_intolerance"},
+            {"id": 6, "name": "Gluten Intolerance", "code": "gluten_intolerance"},
+            {"id": 7, "name": "Nut Allergy", "code": "nut_allergy"},
+            {"id": 8, "name": "Egg Allergy", "code": "egg_allergy"},
+            {"id": 9, "name": "Fish Allergy", "code": "fish_allergy"},
+            {"id": 10, "name": "Shellfish Allergy", "code": "shellfish_allergy"}
+        ]
         
-        chat_list = []
-        for chat in chats:
-            chat_list.append({
-                'chat_id': chat['chat_id'],
-                'title': chat['title'],
-                'step': chat['step'],
-                'created_at': chat['created_at'],
-                'updated_at': chat['updated_at']
-            })
-        
-        return jsonify({'success': True, 'chats': chat_list})
+        return jsonify({
+            "health_conditions": conditions,
+            "status": "success"
+        })
         
     except Exception as e:
-        print(f"Error getting chats: {str(e)}")
-        return jsonify({'error': 'Failed to get chats', 'success': False}), 500
+        return jsonify({
+            "error": str(e),
+            "status": "error"
+        }), 500
 
-@app.route('/api/chats', methods=['POST'])
-@require_auth
-def create_chat():
-    """Create new chat"""
-    try:
-        chat_id = str(uuid.uuid4())
-        title = "New Conversation"
-        
-        conn = get_db_connection()
-        conn.execute('''
-            INSERT INTO chats (chat_id, user_id, title, step, user_data)
-            VALUES (?, ?, ?, ?, ?)
-        ''', (chat_id, session['user_id'], title, 'greeting', '{}'))
-        conn.commit()
-        conn.close()
-        
-        return jsonify({'success': True, 'chat_id': chat_id})
-        
-    except Exception as e:
-        print(f"Error creating chat: {str(e)}")
-        return jsonify({'error': 'Failed to create chat', 'success': False}), 500
-
-# All your existing conversation processing functions remain the same
+# All conversation processing functions remain the same
 def process_enhanced_conversation(session, message):
     """Enhanced conversation flow with all new features"""
     step = session['step']
@@ -594,7 +353,7 @@ def process_enhanced_conversation(session, message):
     if step == 'greeting':
         session['step'] = 'age'
         return {
-            "message": "🌟 Hello! I'm your Enhanced Personal Diet Assistant! 🍎\n\nI'll create a comprehensive meal plan including:\n✅ Complete vitamins & minerals analysis\n✅ Traditional & modern food options\n✅ Seasonal food recommendations\n✅ Detailed preparation methods\n✅ Storage guidelines & grocery lists\n\nLet's start! What's your age?",
+            "message": "Hello! I'm your Enhanced Personal Diet Assistant!\n\nI'll create a comprehensive meal plan including:\n✅ Complete vitamins & minerals analysis\n✅ Traditional & modern food options\n✅ Seasonal food recommendations\n✅ Detailed preparation methods\n✅ Storage guidelines & grocery lists\n\nLet's start! What's your age?",
             "step": "age",
             "status": "success"
         }
@@ -606,7 +365,7 @@ def process_enhanced_conversation(session, message):
                 user_data['age'] = age
                 session['step'] = 'weight'
                 return {
-                    "message": f"Perfect! Age {age} noted. 📝\n\nWhat's your current weight in kg?",
+                    "message": f"Perfect! Age {age} noted.\n\nWhat's your current weight in kg?",
                     "step": "weight",
                     "status": "success"
                 }
@@ -630,7 +389,7 @@ def process_enhanced_conversation(session, message):
                 user_data['weight'] = weight
                 session['step'] = 'height'
                 return {
-                    "message": f"Great! Weight {weight} kg recorded. ⚖️\n\nWhat's your height in cm?",
+                    "message": f"Great! Weight {weight} kg recorded.\n\nWhat's your height in cm?",
                     "step": "height",
                     "status": "success"
                 }
@@ -654,7 +413,7 @@ def process_enhanced_conversation(session, message):
                 user_data['height'] = height
                 session['step'] = 'gender'
                 return {
-                    "message": f"Excellent! Height {height} cm noted. 📏\n\nWhat's your gender?\n- Male\n- Female",
+                    "message": f"Excellent! Height {height} cm noted.\n\nWhat's your gender?\n- Male\n- Female",
                     "step": "gender",
                     "status": "success"
                 }
@@ -685,7 +444,7 @@ def process_enhanced_conversation(session, message):
         
         session['step'] = 'food_preference'
         return {
-            "message": f"👤 Gender recorded as {user_data['gender'].title()}.\n\n🍽️ What's your dietary preference?\n- Vegetarian (Plant-based only)\n- Non-Vegetarian (Includes meat/fish)\n- Both (Flexible diet)",
+            "message": f"Gender recorded as {user_data['gender'].title()}.\n\nWhat's your dietary preference?\n- Vegetarian (Plant-based only)\n- Non-Vegetarian (Includes meat/fish)\n- Both (Flexible diet)",
             "step": "food_preference",
             "status": "success"
         }
@@ -706,7 +465,7 @@ def process_enhanced_conversation(session, message):
         
         session['step'] = 'food_style'
         return {
-            "message": f"🥘 Dietary preference: {user_data['food_preference'].replace('_', '-').title()}\n\n🌿 What's your food style preference?\n- Traditional (Classic Indian regional foods)\n- Modern (Contemporary & fusion cuisine)\n- Both (Mix of traditional and modern)",
+            "message": f"Dietary preference: {user_data['food_preference'].replace('_', '-').title()}\n\nWhat's your food style preference?\n- Traditional (Classic Indian regional foods)\n- Modern (Contemporary & fusion cuisine)\n- Both (Mix of traditional and modern)",
             "step": "food_style",
             "status": "success"
         }
@@ -740,7 +499,7 @@ def process_enhanced_conversation(session, message):
         user_data['current_season'] = season
         
         return {
-            "message": f"🍴 Food style: {user_data['food_style'].title()}\n\n🌱 I've detected current season as {season.title()}.\n\nIs this correct, or would you prefer meals for a different season?\n- Winter (Dec-Feb) - Warming foods\n- Spring (Mar-May) - Detox foods  \n- Monsoon (Jun-Sep) - Immunity boosting\n- Autumn (Oct-Nov) - Balancing foods\n- Current ({season.title()}) - Keep detected season",
+            "message": f"Food style: {user_data['food_style'].title()}\n\nI've detected current season as {season.title()}.\n\nIs this correct, or would you prefer meals for a different season?\n- Winter (Dec-Feb) - Warming foods\n- Spring (Mar-May) - Detox foods  \n- Monsoon (Jun-Sep) - Immunity boosting\n- Autumn (Oct-Nov) - Balancing foods\n- Current ({season.title()}) - Keep detected season",
             "step": "current_season",
             "status": "success"
         }
@@ -766,7 +525,7 @@ def process_enhanced_conversation(session, message):
         
         session['step'] = 'region'
         return {
-            "message": f"🌤️ Season preference: {user_data['current_season'].title()}\n\n🗺️ Which regional cuisine do you prefer?\n- South Indian (Rice, Sambar, Rasam)\n- North Indian (Roti, Dal, Sabzi)",
+            "message": f"Season preference: {user_data['current_season'].title()}\n\nWhich regional cuisine do you prefer?\n- South Indian (Rice, Sambar, Rasam)\n- North Indian (Roti, Dal, Sabzi)",
             "step": "region",
             "status": "success"
         }
@@ -785,7 +544,7 @@ def process_enhanced_conversation(session, message):
         
         session['step'] = 'goal'
         return {
-            "message": f"🌶️ Regional cuisine: {user_data['region'].replace('_', ' ').title()}\n\n🎯 What's your primary health goal?\n- Weight Loss (Caloric deficit)\n- Weight Gain (Muscle building)\n- Maintain Weight (Balanced nutrition)",
+            "message": f"Regional cuisine: {user_data['region'].replace('_', ' ').title()}\n\nWhat's your primary health goal?\n- Weight Loss (Caloric deficit)\n- Weight Gain (Muscle building)\n- Maintain Weight (Balanced nutrition)",
             "step": "goal",
             "status": "success"
         }
@@ -806,7 +565,7 @@ def process_enhanced_conversation(session, message):
         
         session['step'] = 'health_conditions'
         return {
-            "message": f"🎯 Goal: {user_data['goal'].replace('_', ' ').title()}\n\n🏥 Do you have any health conditions? (Type numbers separated by commas, or 'none')\n\n1. Diabetes\n2. Hypertension (High BP)\n3. Kidney Stones\n4. Heart Disease\n5. Lactose Intolerance\n6. Gluten Intolerance\n7. Nut Allergy\n8. Egg Allergy\n9. Fish Allergy\n10. Shellfish Allergy\n11. None\n\nExample: '1,3,7' or 'none'",
+            "message": f"Goal: {user_data['goal'].replace('_', ' ').title()}\n\nDo you have any health conditions? (Type numbers separated by commas, or 'none')\n\n1. Diabetes\n2. Hypertension (High BP)\n3. Kidney Stones\n4. Heart Disease\n5. Lactose Intolerance\n6. Gluten Intolerance\n7. Nut Allergy\n8. Egg Allergy\n9. Fish Allergy\n10. Shellfish Allergy\n11. None\n\nExample: '1,3,7' or 'none'",
             "step": "health_conditions",
             "status": "success"
         }
@@ -825,7 +584,7 @@ def process_enhanced_conversation(session, message):
         
         conditions_text = ", ".join(health_conditions) if health_conditions else "None"
         return {
-            "message": f"🏥 Health conditions: {conditions_text}\n\n💰 What's your budget preference?\n- Low Cost (Local, seasonal foods)\n- Medium Cost (Moderate variety)\n- High Cost (Premium, exotic ingredients)",
+            "message": f"Health conditions: {conditions_text}\n\nWhat's your budget preference?\n- Low Cost (Local, seasonal foods)\n- Medium Cost (Moderate variety)\n- High Cost (Premium, exotic ingredients)",
             "step": "cost_preference",
             "status": "success"
         }
@@ -846,7 +605,7 @@ def process_enhanced_conversation(session, message):
         
         session['step'] = 'timeline'
         return {
-            "message": f"💰 Budget: {user_data['cost_preference'].title()} Cost\n\n⏰ What's your goal timeline?\n- Short-term (1-3 months)\n- Mid-term (3-6 months)\n- Long-term (6+ months)",
+            "message": f"Budget: {user_data['cost_preference'].title()} Cost\n\nWhat's your goal timeline?\n- Short-term (1-3 months)\n- Mid-term (3-6 months)\n- Long-term (6+ months)",
             "step": "timeline",
             "status": "success"
         }
@@ -872,7 +631,7 @@ def process_enhanced_conversation(session, message):
         # Reset session if unknown step
         session['step'] = 'greeting'
         return {
-            "message": "Let's start over! I'm here to create your comprehensive diet plan. 😊",
+            "message": "Let's start over! I'm here to create your comprehensive diet plan.",
             "step": "greeting",
             "status": "success"
         }
@@ -985,7 +744,7 @@ def format_enhanced_diet_plan_response(user_data, nutrition_summary, weekly_plan
     """Format the enhanced diet plan response message"""
     
     # User profile summary
-    profile = f"👤 **Your Complete Profile**\n"
+    profile = f"Your Complete Profile\n"
     profile += f"• Age: {user_data['age']} years | Weight: {user_data['weight']} kg | Height: {user_data['height']} cm\n"
     profile += f"• Gender: {user_data['gender'].title()} | Diet: {user_data['food_preference'].replace('_', '-').title()}\n"
     profile += f"• Style: {user_data.get('food_style', 'both').title()} | Season: {user_data.get('current_season', 'spring').title()}\n"
@@ -996,7 +755,7 @@ def format_enhanced_diet_plan_response(user_data, nutrition_summary, weekly_plan
     profile += f"• Health: {conditions_text} | Budget: {user_data.get('cost_preference', 'medium').title()}\n\n"
     
     # Enhanced nutrition summary with vitamins/minerals
-    nutrition = f"📊 **Complete Nutrition Analysis**\n"
+    nutrition = f"Complete Nutrition Analysis\n"
     nutrition += f"• BMI: {nutrition_summary['bmi']} ({nutrition_summary['bmi_category']})\n"
     nutrition += f"• Daily Calories: {nutrition_summary['daily_calories']} kcal | BMR: {nutrition_summary['bmr']}\n"
     nutrition += f"• Protein: {nutrition_summary['macronutrients']['protein']}g | Carbs: {nutrition_summary['macronutrients']['carbs']}g | Fat: {nutrition_summary['macronutrients']['fat']}g\n"
@@ -1009,7 +768,7 @@ def format_enhanced_diet_plan_response(user_data, nutrition_summary, weekly_plan
     
     # Sample day with enhanced details
     monday_plan = weekly_plan.get('Monday', {})
-    sample_day = f"🍽️ **Sample Day Menu (Monday)**\n"
+    sample_day = f"Sample Day Menu (Monday)\n"
     
     for meal_type, meal_data in monday_plan.items():
         if meal_type != 'totals' and isinstance(meal_data, dict):
@@ -1025,13 +784,13 @@ def format_enhanced_diet_plan_response(user_data, nutrition_summary, weekly_plan
         sample_day += f"**Daily Total:** {monday_plan['totals']['calories']} kcal\n\n"
     
     # Enhanced health recommendations
-    recs = f"💡 **Personalized Health Recommendations**\n"
+    recs = f"Personalized Health Recommendations\n"
     for i, rec in enumerate(recommendations[:5], 1):  # Show top 5
         recs += f"{i}. {rec}\n"
     recs += "\n"
     
     # Grocery list preview
-    grocery_preview = f"🛒 **Weekly Grocery List (Preview)**\n"
+    grocery_preview = f"Weekly Grocery List (Preview)\n"
     if grocery_list:
         categories = ['vegetables', 'grains', 'proteins', 'spices']
         for category in categories:
@@ -1042,204 +801,36 @@ def format_enhanced_diet_plan_response(user_data, nutrition_summary, weekly_plan
     
     # Seasonal benefits
     seasonal_info = get_season_info(user_data.get('current_season', 'spring'))
-    seasonal_text = f"🌱 **Seasonal Benefits ({user_data.get('current_season', 'spring').title()})**\n"
+    seasonal_text = f"Seasonal Benefits ({user_data.get('current_season', 'spring').title()})\n"
     seasonal_text += f"• Focus: {seasonal_info.get('description', 'Balanced nutrition')}\n"
     seasonal_text += f"• Includes: {', '.join(seasonal_info.get('beneficial_foods', [])[:4])}\n\n"
 
-    final_message = f"""🎉 **Your Enhanced 7-Day Diet Plan is Ready!**
+    final_message = f"""Your Enhanced 7-Day Diet Plan is Ready!
 
 {profile}{nutrition}{sample_day}{recs}{grocery_preview}{seasonal_text}
 
-✅ **Complete Features Included:**
-🧬 Full vitamin & mineral analysis
-🍯 Traditional + modern food combinations  
-🌿 Season-specific recommendations
-📋 Detailed preparation methods
-🏪 Storage guidelines for each food
-🛍️ Complete weekly grocery list
-⚖️ Precise quantity measurements
+Complete Features Included:
+- Full vitamin & mineral analysis
+- Traditional + modern food combinations  
+- Season-specific recommendations
+- Detailed preparation methods
+- Storage guidelines for each food
+- Complete weekly grocery list
+- Precise quantity measurements
 
-🎯 **Special Highlights:**
+Special Highlights:
 • {user_data.get('current_season', 'Spring').title()} seasonal foods for optimal health
 • {user_data.get('food_style', 'Traditional').title()} cuisine style as preferred
 • Health condition considerations included
 • {user_data.get('cost_preference', 'Medium').title()} budget-friendly options
 
-💬 Type 'new plan' for another plan, 'grocery list' for full shopping list, or ask specific questions!"""
+Type 'new plan' for another plan or ask specific questions!"""
     
     return final_message
 
-# NEW: Enhanced endpoints for additional features
-@app.route('/api/grocery-list/<chat_id>', methods=['GET'])
-@require_auth
-def get_grocery_list(chat_id):
-    """Get detailed grocery list for a specific chat's meal plan"""
-    try:
-        conn = get_db_connection()
-        chat = conn.execute('''
-            SELECT plan_data FROM chats 
-            WHERE chat_id = ? AND user_id = ?
-        ''', (chat_id, session['user_id'])).fetchone()
-        conn.close()
-        
-        if not chat or not chat['plan_data']:
-            return jsonify({'error': 'No meal plan found', 'success': False}), 404
-        
-        plan_data = json.loads(chat['plan_data'])
-        grocery_list = plan_data.get('grocery_list', {})
-        
-        return jsonify({
-            'success': True,
-            'grocery_list': grocery_list,
-            'chat_id': chat_id
-        })
-        
-    except Exception as e:
-        print(f"Error getting grocery list: {str(e)}")
-        return jsonify({'error': 'Failed to get grocery list', 'success': False}), 500
-
-@app.route('/api/meal-details/<chat_id>/<day>/<meal>', methods=['GET'])
-@require_auth
-def get_meal_details(chat_id, day, meal):
-    """Get detailed information about a specific meal"""
-    try:
-        conn = get_db_connection()
-        chat = conn.execute('''
-            SELECT plan_data FROM chats 
-            WHERE chat_id = ? AND user_id = ?
-        ''', (chat_id, session['user_id'])).fetchone()
-        conn.close()
-        
-        if not chat or not chat['plan_data']:
-            return jsonify({'error': 'No meal plan found', 'success': False}), 404
-        
-        plan_data = json.loads(chat['plan_data'])
-        weekly_plan = plan_data.get('weekly_plan', {})
-        
-        if day not in weekly_plan or meal not in weekly_plan[day]:
-            return jsonify({'error': 'Meal not found', 'success': False}), 404
-        
-        meal_details = weekly_plan[day][meal]
-        
-        return jsonify({
-            'success': True,
-            'meal_details': meal_details,
-            'day': day,
-            'meal_type': meal
-        })
-        
-    except Exception as e:
-        print(f"Error getting meal details: {str(e)}")
-        return jsonify({'error': 'Failed to get meal details', 'success': False}), 500
-
-# Enhanced endpoints
-@app.route('/api/nutrition', methods=['POST'])
-@require_auth
-def calculate_nutrition():
-    """Enhanced nutrition calculation endpoint"""
-    try:
-        data = request.get_json()
-        
-        nutrition_summary = nutrition_calc.get_enhanced_nutrition_summary(
-            data['weight'],
-            data['height'],
-            data['age'],
-            data['gender'],
-            data['goal'],
-            data.get('timeline', 'short_term')
-        )
-        
-        return jsonify({
-            "nutrition_summary": nutrition_summary,
-            "status": "success"
-        })
-        
-    except Exception as e:
-        return jsonify({
-            "error": str(e),
-            "status": "error"
-        }), 500
-
-@app.route('/api/meal-plan', methods=['POST'])
-@require_auth
-def generate_meal_plan():
-    """Enhanced meal plan generation endpoint"""
-    try:
-        data = request.get_json()
-        
-        # Calculate enhanced nutrition first
-        nutrition_summary = nutrition_calc.get_enhanced_nutrition_summary(
-            data['weight'],
-            data['height'],
-            data['age'],
-            data['gender'],
-            data['goal'],
-            data.get('timeline', 'short_term')
-        )
-        
-        # Generate enhanced meal plan
-        weekly_plan = diet_engine.generate_enhanced_weekly_plan(
-            data, 
-            nutrition_summary,
-            health_conditions=data.get('health_conditions', []),
-            cost_preference=data.get('cost_preference', 'medium'),
-            food_style=data.get('food_style', 'both'),
-            current_season=data.get('current_season', 'spring')
-        )
-        
-        recommendations = diet_engine.get_enhanced_health_recommendations(
-            data, 
-            nutrition_summary,
-            health_conditions=data.get('health_conditions', [])
-        )
-        
-        grocery_list = diet_engine.generate_grocery_list(weekly_plan)
-        
-        return jsonify({
-            "nutrition_summary": nutrition_summary,
-            "weekly_plan": weekly_plan,
-            "recommendations": recommendations,
-            "grocery_list": grocery_list,
-            "status": "success"
-        })
-        
-    except Exception as e:
-        return jsonify({
-            "error": str(e),
-            "status": "error"
-        }), 500
-
-@app.route('/api/health-conditions', methods=['GET'])
-def get_health_conditions():
-    """Get list of available health conditions"""
-    try:
-        conditions = [
-            {"id": 1, "name": "Diabetes", "code": "diabetes"},
-            {"id": 2, "name": "Hypertension (High BP)", "code": "hypertension"},
-            {"id": 3, "name": "Kidney Stones", "code": "kidney_stones"},
-            {"id": 4, "name": "Heart Disease", "code": "heart_disease"},
-            {"id": 5, "name": "Lactose Intolerance", "code": "lactose_intolerance"},
-            {"id": 6, "name": "Gluten Intolerance", "code": "gluten_intolerance"},
-            {"id": 7, "name": "Nut Allergy", "code": "nut_allergy"},
-            {"id": 8, "name": "Egg Allergy", "code": "egg_allergy"},
-            {"id": 9, "name": "Fish Allergy", "code": "fish_allergy"},
-            {"id": 10, "name": "Shellfish Allergy", "code": "shellfish_allergy"}
-        ]
-        
-        return jsonify({
-            "health_conditions": conditions,
-            "status": "success"
-        })
-        
-    except Exception as e:
-        return jsonify({
-            "error": str(e),
-            "status": "error"
-        }), 500
-
 if __name__ == '__main__':
-    print("Starting Enhanced Diet Chatbot API...")
-    print("🌟 NEW FEATURES ADDED:")
+    print("Starting Simplified Diet Chatbot API...")
+    print("Features:")
     print("✅ Complete vitamins & minerals tracking")
     print("✅ Traditional/Modern food preferences") 
     print("✅ Seasonal food recommendations")
@@ -1247,23 +838,18 @@ if __name__ == '__main__':
     print("✅ Detailed preparation methods")
     print("✅ Storage guidelines")
     print("✅ Grocery list generation")
-    print("✅ Veg/Non-veg/Both combinations")
     print("✅ Enhanced nutrition analysis")
-    print("🔧 FIXES APPLIED:")
-    print("✅ Removed @require_auth from /api/chat and /api/reset for testing")
-    print("✅ Auto-creates test user session for unauthenticated requests")
-    print("✅ Added comprehensive CORS support")
-    print("✅ Fixed chat creation for missing chat_id")
+    print("✅ In-memory session storage (no database)")
+    print("✅ No authentication required")
     print("-" * 50)
-    print("🔗 API Endpoints:")
-    print("FIXED: POST /api/chat - Now works without authentication")
-    print("FIXED: POST /api/reset - Now works without authentication")
-    print("NEW: POST /api/process-voice - Voice input processing")
-    print("NEW: GET /api/current-season - Get current season")
-    print("NEW: GET /api/food-categories - Get food categories")
-    print("NEW: GET /api/grocery-list/<chat_id> - Get grocery list")
-    print("NEW: GET /api/meal-details/<chat_id>/<day>/<meal> - Meal details")
-    print("Enhanced: POST /api/nutrition - Complete nutrition analysis")
-    print("Enhanced: POST /api/meal-plan - Enhanced meal planning")
+    print("API Endpoints:")
+    print("POST /api/chat - Main chat endpoint")
+    print("POST /api/reset - Reset session")
+    print("POST /api/process-voice - Voice input processing")
+    print("GET /api/current-season - Get current season")
+    print("GET /api/food-categories - Get food categories")
+    print("POST /api/nutrition - Complete nutrition analysis")
+    print("POST /api/meal-plan - Enhanced meal planning")
+    print("GET /api/health-conditions - Get health conditions list")
     print("-" * 50)
     app.run(debug=True, host='0.0.0.0', port=5000)

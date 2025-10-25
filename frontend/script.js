@@ -1,4 +1,3 @@
-// Complete Error-Free Enhanced Frontend JavaScript for Diet Chatbot
 class EnhancedDietChatbot {
     constructor() {
         this.apiUrl = 'http://localhost:5000/api';
@@ -8,7 +7,7 @@ class EnhancedDietChatbot {
         this.voiceRecognition = null;
         this.isListening = false;
         this.currentSeason = this.getCurrentSeason();
-        this.userResponses = {}; // Store user responses
+        this.userResponses = {}; 
         this.lastPlanData = null;
         
         this.initializeElements();
@@ -52,7 +51,7 @@ class EnhancedDietChatbot {
     }
     
     initializeGreeting() {
-        // Add initial greeting message
+        
         setTimeout(() => {
             this.addMessage("🌟 Welcome to your Enhanced Smart Diet Assistant!", 'bot');
             this.addMessage("I'll create a personalized meal plan with complete nutrition analysis, seasonal recommendations, traditional + modern foods, detailed recipes, grocery lists, and storage guidelines.", 'bot');
@@ -81,18 +80,18 @@ class EnhancedDietChatbot {
     }
     
     startPlanningProcess() {
-        // Remove start planning button
+        
         const startBtn = document.querySelector('.start-planning-btn');
         if (startBtn) startBtn.remove();
         
-        // Begin the planning process
+        
         this.addMessage("Perfect! Let's create your personalized nutrition plan. I'll guide you through a few questions to understand your preferences and needs.", 'bot');
         
-        // Set first step
+        
         this.currentStep = 'food_style';
         this.askCurrentQuestion();
         
-        // Enable input
+        
         this.setInputState(true, 'Choose your preferred food style...');
         this.showNotification('Planning started! Answer the questions to create your perfect diet plan.', 'success');
     }
@@ -228,12 +227,12 @@ class EnhancedDietChatbot {
     }
     
     attachEventListeners() {
-        // Send button click
+        
         if (this.sendBtn) {
             this.sendBtn.addEventListener('click', () => this.sendMessage());
         }
         
-        // Enter key press
+        
         if (this.messageInput) {
             this.messageInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
@@ -242,29 +241,29 @@ class EnhancedDietChatbot {
                 }
             });
             
-            // Input suggestions
+            
             this.messageInput.addEventListener('focus', () => this.showInputSuggestions(this.currentStep));
             this.messageInput.addEventListener('input', () => this.hideInputSuggestions());
         }
         
-        // Voice button click
+        
         if (this.voiceBtn) {
             this.voiceBtn.addEventListener('click', () => this.toggleVoiceInput());
         }
         
-        // Reset button
+        
         if (this.resetBtn) {
             this.resetBtn.addEventListener('click', () => this.resetChat());
         }
         
-        // Modal close
+      
         window.addEventListener('click', (e) => {
             if (e.target === this.dietPlanModal) {
                 this.closeDietPlan();
             }
         });
         
-        // Prevent form submission if in a form
+        
         window.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && e.target === this.messageInput) {
                 e.preventDefault();
@@ -318,10 +317,10 @@ class EnhancedDietChatbot {
         const message = this.messageInput.value.trim();
         if (!message || this.isWaitingForResponse) return;
 
-        // Add user message to chat
+        
         this.addMessage(message, 'user');
         
-        // Store user response
+        
         this.userResponses[this.currentStep] = message;
         
         this.messageInput.value = '';
@@ -329,7 +328,7 @@ class EnhancedDietChatbot {
         this.setInputState(false, 'Processing your response...');
 
         try {
-            // Move to next step or generate plan
+            
             await this.processUserResponse(message);
             
         } catch (error) {
@@ -342,7 +341,7 @@ class EnhancedDietChatbot {
     }
     
     async processUserResponse(message) {
-        // Validate response
+        
         if (!this.validateResponse(this.currentStep, message)) {
             this.addMessage('Please provide a valid response for this question.', 'bot', true);
             this.setInputState(true, this.getStepPlaceholder(this.currentStep));
@@ -350,7 +349,7 @@ class EnhancedDietChatbot {
             return;
         }
         
-        // Move to next step
+        
         const nextStep = this.getNextStep(this.currentStep);
         
         if (nextStep) {
@@ -358,7 +357,7 @@ class EnhancedDietChatbot {
             this.addMessage('Got it! Let\'s continue...', 'bot');
             setTimeout(() => this.askCurrentQuestion(), 1000);
         } else {
-            // All questions answered, generate plan
+            
             this.addMessage('Perfect! I have all the information I need. Let me create your personalized nutrition plan...', 'bot');
             this.showLoading(true);
             this.setInputState(false, 'Generating your complete nutrition plan...');
@@ -407,7 +406,7 @@ class EnhancedDietChatbot {
     }
     
     async generateNutritionPlan() {
-        // Try to call the backend first
+        
         try {
             const response = await fetch(`${this.apiUrl}/generate_plan`, {
                 method: 'POST',
@@ -432,7 +431,7 @@ class EnhancedDietChatbot {
             console.log('Backend not available, generating local plan');
         }
         
-        // Generate local fallback plan
+        
         return this.generateLocalPlan();
     }
     
@@ -442,7 +441,7 @@ class EnhancedDietChatbot {
         const height = parseFloat(this.userResponses.height) || 170;
         const gender = this.userResponses.gender?.toLowerCase() || 'male';
         
-        // Calculate BMR and BMI
+        
         const bmr = gender === 'male' 
             ? 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
             : 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
@@ -450,8 +449,8 @@ class EnhancedDietChatbot {
         const bmi = weight / ((height / 100) ** 2);
         const bmiCategory = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Normal' : bmi < 30 ? 'Overweight' : 'Obese';
         
-        // Calculate daily calories based on goal
-        let dailyCalories = Math.round(bmr * 1.4); // Moderate activity
+       
+        let dailyCalories = Math.round(bmr * 1.4); 
         const goal = this.userResponses.goal?.toLowerCase() || '';
         
         if (goal.includes('loss')) {
@@ -460,7 +459,7 @@ class EnhancedDietChatbot {
             dailyCalories = Math.round(dailyCalories * 1.2);
         }
         
-        // Calculate macronutrients
+        
         const protein = Math.round(weight * (goal.includes('muscle') ? 2.2 : 1.2));
         const fat = Math.round(dailyCalories * 0.3 / 9);
         const carbs = Math.round((dailyCalories - (protein * 4) - (fat * 9)) / 4);
@@ -494,7 +493,7 @@ class EnhancedDietChatbot {
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         const weeklyPlan = {};
         
-        // Sample meal distribution
+        
         const mealCalories = {
             breakfast: Math.round(dailyCalories * 0.25),
             lunch: Math.round(dailyCalories * 0.35),
@@ -633,7 +632,7 @@ class EnhancedDietChatbot {
             'Chicken Curry': 'Lean protein, iron and B vitamins'
         };
         
-        // Find closest match
+        
         for (const [meal, benefit] of Object.entries(benefits)) {
             if (mealName.toLowerCase().includes(meal.toLowerCase().split(' ')[0])) {
                 return benefit;
@@ -650,7 +649,7 @@ class EnhancedDietChatbot {
             'Chapati': '1. Make dough with wheat flour\n2. Rest for 20 minutes\n3. Roll into circles\n4. Cook on hot tawa until spotted'
         };
         
-        // Find closest match
+        
         for (const [meal, method] of Object.entries(methods)) {
             if (mealName.toLowerCase().includes(meal.toLowerCase())) {
                 return method;
@@ -671,7 +670,7 @@ class EnhancedDietChatbot {
             'Practice yoga or light exercise regularly'
         ];
         
-        // Add personalized recommendations based on user responses
+        
         if (this.userResponses.goal?.includes('weight loss')) {
             recommendations.push('Focus on protein-rich foods to maintain muscle mass');
             recommendations.push('Include more fiber-rich vegetables to stay full longer');
@@ -687,7 +686,7 @@ class EnhancedDietChatbot {
             recommendations.push('Include complex carbs and high-fiber foods');
         }
         
-        return recommendations.slice(0, 8); // Return top 8 recommendations
+        return recommendations.slice(0, 8); 
     }
     
     generateCompleteNutrition() {
@@ -768,7 +767,7 @@ class EnhancedDietChatbot {
         const contentDiv = lastMessage.querySelector('.message-content');
         if (!contentDiv) return;
         
-        // Remove existing quick actions
+        
         const existingActions = contentDiv.querySelector('.quick-actions');
         if (existingActions) existingActions.remove();
         
@@ -1005,18 +1004,18 @@ class EnhancedDietChatbot {
     
     async resetChat() {
         try {
-            // Clear chat messages except welcome message
+           
             const messages = this.chatMessages.querySelectorAll('.message');
             messages.forEach(msg => msg.remove());
             
-            // Reset state
+            
             this.currentStep = 'greeting';
             this.userResponses = {};
             this.lastPlanData = null;
             this.closeDietPlan();
             this.hideInputSuggestions();
             
-            // Reinitialize greeting
+            
             this.initializeGreeting();
             
             this.showNotification('Chat reset successfully! Ready for a new plan.', 'success');
@@ -1031,10 +1030,10 @@ class EnhancedDietChatbot {
         if (!data) data = this.lastPlanData;
         if (!data) return;
         
-        // Show the first tab (meal plan) by default
+        
         this.showTab('meal-plan');
         
-        // Populate all tab contents
+        
         this.populateAllTabs(data);
         
         this.dietPlanModal.style.display = 'block';
@@ -1042,23 +1041,23 @@ class EnhancedDietChatbot {
     }
     
     populateAllTabs(data) {
-        // Meal Plan Tab
+        
         const mealPlanTab = document.getElementById('meal-plan-tab');
         if (mealPlanTab) mealPlanTab.innerHTML = this.generateMealPlanHTML(data);
         
-        // Nutrition Analysis Tab
+        
         const nutritionTab = document.getElementById('nutrition-analysis-tab');
         if (nutritionTab) nutritionTab.innerHTML = this.generateCompleteNutritionHTML(data);
         
-        // Recipes Tab
+        
         const recipesTab = document.getElementById('recipes-tab');
         if (recipesTab) recipesTab.innerHTML = this.generateRecipesHTML(data);
         
-        // Grocery List Tab
+       
         const groceryTab = document.getElementById('grocery-list-tab');
         if (groceryTab) groceryTab.innerHTML = this.generateGroceryListHTML(data);
         
-        // Storage Guide Tab
+        
         const storageTab = document.getElementById('storage-guide-tab');
         if (storageTab) storageTab.innerHTML = this.generateStorageGuideHTML(data);
     }
@@ -1720,21 +1719,21 @@ class EnhancedDietChatbot {
     }
     
     showTab(tabName) {
-        // Hide all tab contents
+        
         const tabContents = document.querySelectorAll('.tab-content');
         tabContents.forEach(content => content.style.display = 'none');
         
-        // Remove active class from all tab buttons
+        
         const tabBtns = document.querySelectorAll('.tab-btn');
         tabBtns.forEach(btn => btn.classList.remove('active'));
         
-        // Show selected tab content
+    
         const selectedTab = document.getElementById(tabName + '-tab');
         if (selectedTab) {
             selectedTab.style.display = 'block';
         }
         
-        // Add active class to clicked button
+        
         const activeBtn = Array.from(tabBtns).find(btn => 
             btn.textContent.toLowerCase().includes(tabName.replace('-', ' '))
         );
@@ -1850,7 +1849,7 @@ class EnhancedDietChatbot {
     }
     
     showNotification(message, type = 'info', duration = 4000) {
-        // Remove existing notifications
+        
         const existingNotifications = document.querySelectorAll('.notification');
         existingNotifications.forEach(notif => notif.remove());
         
@@ -1914,7 +1913,7 @@ class EnhancedDietChatbot {
     }
 }
 
-// Global functions for HTML onclick events
+
 function startPlanning() {
     if (window.chatbot) {
         window.chatbot.startPlanningProcess();
@@ -1995,12 +1994,12 @@ function closeHealthInfo() {
     }
 }
 
-// Initialize the enhanced chatbot when page loads
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Create global chatbot instance
+    
     window.chatbot = new EnhancedDietChatbot();
     
-    // Add enhanced CSS styles
+    
     const enhancedStyles = document.createElement('style');
     enhancedStyles.textContent = `
         /* Enhanced Quick Actions */
@@ -2758,7 +2757,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.head.appendChild(enhancedStyles);
     
-    // Add error handling
+    
     window.addEventListener('error', (e) => {
         console.error('Global error:', e.error);
         if (window.chatbot) {
@@ -2766,7 +2765,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Add unhandled promise rejection handling
+
     window.addEventListener('unhandledrejection', (e) => {
         console.error('Unhandled promise rejection:', e.reason);
         if (window.chatbot) {

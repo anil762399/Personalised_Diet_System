@@ -1,6 +1,3 @@
-"""
-Enhanced Diet Engine with Seasonal Foods, Traditional/Modern Styles, and Complete Meal Planning
-"""
 import json
 import random
 from datetime import datetime
@@ -102,7 +99,7 @@ class DietEngine:
         weekly_plan = {}
         days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         
-        # Get daily calorie distribution
+ 
         daily_calories = nutrition_summary['daily_calories']
         meal_calorie_distribution = {
             'breakfast': daily_calories * 0.25,
@@ -113,15 +110,11 @@ class DietEngine:
         
         for day in days:
             daily_plan = {}
-            
-            # Generate meals for each meal type
             for meal_type, target_calories in meal_calorie_distribution.items():
                 daily_plan[meal_type] = self.generate_enhanced_meal(
                     meal_type, user_data, target_calories, 
                     food_style, current_season, health_conditions, cost_preference
                 )
-            
-            # Calculate daily totals
             daily_plan['totals'] = self.calculate_daily_totals(daily_plan)
             
             weekly_plan[day] = daily_plan
@@ -132,19 +125,19 @@ class DietEngine:
                               food_style, current_season, health_conditions, cost_preference):
         """Generate enhanced meal with all new features"""
         
-        # Get suitable meals based on preferences
+       
         suitable_meals = self.get_suitable_meals(
             meal_type, user_data, food_style, current_season, health_conditions
         )
         
         if not suitable_meals:
-            # Fallback meal
+            
             return self.create_fallback_meal(meal_type, target_calories, user_data)
         
-        # Select meal based on cost preference and variety
+        
         selected_meal = self.select_optimal_meal(suitable_meals, cost_preference, target_calories)
         
-        # Create enhanced meal object
+    
         enhanced_meal = {
             'name': selected_meal['name'],
             'calories': selected_meal['calories'],
@@ -171,7 +164,7 @@ class DietEngine:
         """Get meals suitable for all criteria"""
         suitable_meals = []
         
-        # Get meal templates based on region and style
+    
         template_key = self.get_template_key(user_data['region'], food_style)
         meal_options = self.meal_templates.get(template_key, {}).get(meal_type, [])
         
@@ -189,15 +182,12 @@ class DietEngine:
             return f"{region}_traditional"
         elif food_style == 'modern':
             return "modern_fusion"
-        else:  # both
-            # Mix traditional and modern based on meal
+        else:  
             return random.choice([f"{region}_traditional", "modern_fusion"])
     
     def get_meal_data(self, meal_name):
         """Get comprehensive meal data"""
-        # This would typically come from your enhanced nutrition database
-        # For now, creating sample data structure
-        
+       
         meal_database = {
             "idli_sambar": {
                 "name": "Idli with Sambar",
@@ -234,25 +224,24 @@ class DietEngine:
     def is_meal_suitable(self, meal_data, user_data, current_season, health_conditions):
         """Check if meal is suitable for user preferences and restrictions"""
         
-        # Check dietary preference
+       
         meal_dietary = meal_data.get('dietary_type', 'vegetarian')
         user_dietary = user_data['food_preference']
         
         if user_dietary == 'vegetarian' and meal_dietary == 'non_vegetarian':
             return False
         elif user_dietary == 'non_vegetarian' and meal_dietary == 'vegetarian':
-            return True  # Non-veg users can eat veg food
+            return True 
         elif user_dietary == 'both':
-            return True  # Both preferences accept everything
+            return True  
         
-        # Check seasonal availability
         meal_seasons = meal_data.get('seasonal_availability', [])
         if meal_seasons and current_season not in meal_seasons:
-            # Allow if it's a year-round food
+       
             if len(meal_seasons) < 4:
                 return False
         
-        # Check health condition restrictions
+       
         if health_conditions:
             meal_restrictions = self.get_meal_health_restrictions(meal_data['name'])
             for condition in health_conditions:
@@ -290,23 +279,22 @@ class DietEngine:
         for meal in suitable_meals:
             score = 0
             
-            # Calorie match score (higher is better)
+           
             calorie_diff = abs(meal['calories'] - target_calories)
             calorie_score = max(0, 100 - (calorie_diff / target_calories) * 100)
             score += calorie_score * 0.4
             
-            # Cost preference score
             meal_cost = self.estimate_meal_cost(meal['name'])
             cost_score = self.get_cost_preference_score(meal_cost, cost_preference)
             score += cost_score * 0.3
             
-            # Nutritional density score
+            
             nutrition_score = self.calculate_nutritional_density_score(meal)
             score += nutrition_score * 0.3
             
             scored_meals.append((meal, score))
         
-        # Select meal with highest score
+        
         best_meal = max(scored_meals, key=lambda x: x[1])
         return best_meal[0]
     
@@ -344,15 +332,14 @@ class DietEngine:
         if calories == 0:
             return 0
         
-        # Protein density (protein grams per 100 calories)
+        
         protein_density = (meal['macros'].get('protein', 0) / calories) * 100
         
-        # Micronutrient density (simplified)
+        
         vitamin_count = len(meal.get('vitamins', {}))
         mineral_count = len(meal.get('minerals', {}))
         micronutrient_score = (vitamin_count + mineral_count) * 5
         
-        # Combined score
         total_score = min(100, protein_density * 10 + micronutrient_score)
         return total_score
     
@@ -427,7 +414,7 @@ class DietEngine:
         method = preparation_database.get(meal_name.lower().replace(' ', '_'), 
                                         'Cook ingredients properly with minimal oil and appropriate spices.')
         
-        # Add regional variations
+       
         if 'south' in region and 'coconut' not in method:
             method += ' Add coconut for authentic South Indian flavor.'
         elif 'north' in region and 'ghee' not in method:
@@ -449,7 +436,7 @@ class DietEngine:
         
         meal_lower = meal_name.lower()
         
-        # Match meal with storage category
+        
         if any(word in meal_lower for word in ['rice', 'biryani', 'pulao']):
             return storage_database['cooked_rice']
         elif any(word in meal_lower for word in ['dal', 'lentil', 'sambar', 'rasam']):
@@ -479,14 +466,14 @@ class DietEngine:
         
         meal_lower = meal_name.lower()
         
-        # Find base serving size
+     
         serving_size = '1 portion'
         for food, size in base_serving_sizes.items():
             if food in meal_lower:
                 serving_size = size
                 break
         
-        # Adjust for user goal
+       
         goal = user_data.get('goal', 'maintain')
         if goal == 'weight_gain':
             serving_size = f"Large portion ({serving_size})"
@@ -551,7 +538,7 @@ class DietEngine:
             if food_category in meal_lower:
                 benefits.extend(benefit_list)
         
-        # Add condition-specific benefits
+        
         if 'diabetes' in health_conditions:
             if any(word in meal_lower for word in ['fiber', 'whole', 'complex']):
                 benefits.append('Helps regulate blood sugar')
@@ -560,7 +547,7 @@ class DietEngine:
             if any(word in meal_lower for word in ['potassium', 'vegetable', 'fruit']):
                 benefits.append('May help lower blood pressure')
         
-        return benefits[:3]  # Return top 3 benefits
+        return benefits[:3]  
     
     def get_meal_ingredients(self, meal_name):
         """Get ingredients list for meal"""
@@ -579,28 +566,27 @@ class DietEngine:
         """Get key nutritional highlights"""
         highlights = []
         
-        # Macro highlights
+        
         macros = meal_data.get('macros', {})
         if macros.get('protein', 0) > 15:
             highlights.append(f"High protein ({macros['protein']}g)")
         if macros.get('fats', 0) < 5:
             highlights.append("Low fat")
         
-        # Vitamin highlights
+        
         vitamins = meal_data.get('vitamins', {})
         for vitamin, amount in vitamins.items():
-            if amount > 0:  # Simplified check
+            if amount > 0:  
                 highlights.append(f"Contains Vitamin {vitamin}")
         
-        # Mineral highlights
+        
         minerals = meal_data.get('minerals', {})
         high_minerals = ['iron', 'calcium', 'magnesium']
         for mineral in high_minerals:
             if mineral in minerals and minerals[mineral] > 0:
                 highlights.append(f"Good source of {mineral}")
         
-        return highlights[:3]  # Return top 3 highlights
-    
+        return highlights[:3]  
     def calculate_daily_totals(self, daily_plan):
         """Calculate daily nutrition totals"""
         totals = {
@@ -619,20 +605,20 @@ class DietEngine:
             if meal_type in daily_plan:
                 meal = daily_plan[meal_type]
                 
-                # Add calories and macros
+                
                 totals['calories'] += meal.get('calories', 0)
                 macros = meal.get('macros', {})
                 totals['protein'] += macros.get('protein', 0)
                 totals['carbs'] += macros.get('carbs', 0)
                 totals['fats'] += macros.get('fats', 0)
                 
-                # Add vitamins
+            
                 for vitamin, amount in meal.get('vitamins', {}).items():
                     if vitamin not in totals['vitamins']:
                         totals['vitamins'][vitamin] = 0
                     totals['vitamins'][vitamin] += amount
                 
-                # Add minerals
+                
                 for mineral, amount in meal.get('minerals', {}).items():
                     if mineral not in totals['minerals']:
                         totals['minerals'][mineral] = 0
@@ -648,7 +634,7 @@ class DietEngine:
         """Generate comprehensive health recommendations"""
         recommendations = []
         
-        # Goal-specific recommendations
+        
         goal = user_data.get('goal', 'maintain')
         if goal == 'weight_loss':
             recommendations.extend([
@@ -664,14 +650,14 @@ class DietEngine:
                 'Include complex carbohydrates for sustained energy',
                 'Consider strength training along with proper nutrition'
             ])
-        else:  # maintain
+        else:  
             recommendations.extend([
                 'Maintain a balanced diet with variety from all food groups',
                 'Focus on whole foods and minimize processed items',
                 'Keep portion sizes appropriate for your activity level'
             ])
         
-        # Health condition specific recommendations
+        
         for condition in health_conditions:
             if condition == 'diabetes':
                 recommendations.extend([
@@ -692,7 +678,7 @@ class DietEngine:
                     'Include citrus fruits for natural citrate'
                 ])
         
-        # Seasonal recommendations
+
         season = user_data.get('current_season', 'spring')
         seasonal_recs = {
             'winter': 'Include warming foods like ginger, garlic, and hot soups to boost immunity',
@@ -703,7 +689,7 @@ class DietEngine:
         if season in seasonal_recs:
             recommendations.append(seasonal_recs[season])
         
-        # Age-specific recommendations
+
         age = user_data.get('age', 25)
         if age > 50:
             recommendations.extend([
@@ -714,14 +700,14 @@ class DietEngine:
         elif age < 25:
             recommendations.append('Ensure adequate protein and calcium for growth and development')
         
-        # Food style recommendations
+        
         food_style = user_data.get('food_style', 'traditional')
         if food_style == 'traditional':
             recommendations.append('Traditional Indian foods provide excellent nutrition - include variety of dals, vegetables, and whole grains')
         elif food_style == 'modern':
             recommendations.append('Balance modern foods with traditional nutritional wisdom - include fermented foods and whole grains')
         
-        return recommendations[:8]  # Return top 8 recommendations
+        return recommendations[:8]  
     
     def generate_grocery_list(self, weekly_plan):
         """Generate comprehensive grocery list from weekly meal plan"""
@@ -735,7 +721,7 @@ class DietEngine:
             'others': set()
         }
         
-        # Extract ingredients from all meals
+        
         for day, day_plan in weekly_plan.items():
             for meal_type, meal_data in day_plan.items():
                 if meal_type != 'totals' and isinstance(meal_data, dict):
@@ -745,7 +731,7 @@ class DietEngine:
                         category = self.categorize_ingredient(ingredient)
                         grocery_list[category].add(ingredient)
         
-        # Convert sets to sorted lists
+        
         for category in grocery_list:
             grocery_list[category] = sorted(list(grocery_list[category]))
         

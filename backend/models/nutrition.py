@@ -1,6 +1,3 @@
-"""
-Enhanced Nutrition Calculator with Complete Vitamins, Minerals, and Advanced Analysis
-"""
 import json
 import math
 
@@ -15,7 +12,7 @@ class NutritionCalculator:
             with open('data/nutrition_data.json', 'r') as f:
                 self.nutrition_data = json.load(f)
         except FileNotFoundError:
-            # Fallback enhanced nutrition data
+        
             self.nutrition_data = self.get_default_enhanced_nutrition_data()
     
     def get_default_enhanced_nutrition_data(self):
@@ -55,7 +52,7 @@ class NutritionCalculator:
     
     def calculate_bmi(self, weight, height):
         """Calculate Body Mass Index"""
-        height_m = height / 100  # Convert cm to meters
+        height_m = height / 100  
         bmi = weight / (height_m ** 2)
         return round(bmi, 1)
     
@@ -72,7 +69,6 @@ class NutritionCalculator:
     
     def calculate_daily_calories(self, bmr, goal, timeline, activity_level='moderate'):
         """Calculate daily calorie needs based on goal and timeline"""
-        # Activity multipliers
         activity_multipliers = {
             'sedentary': 1.2,
             'light': 1.375,
@@ -81,48 +77,47 @@ class NutritionCalculator:
             'very_active': 1.9
         }
         
-        # Base calories with activity
+        
         base_calories = bmr * activity_multipliers.get(activity_level, 1.55)
         
-        # Goal adjustments
+
         if goal == 'weight_loss':
             if timeline == 'short_term':
-                calories = base_calories - 500  # 1lb/week loss
+                calories = base_calories - 500  
             elif timeline == 'mid_term':
-                calories = base_calories - 350  # 0.7lb/week loss
+                calories = base_calories - 350  
             else:
-                calories = base_calories - 250  # 0.5lb/week loss
+                calories = base_calories - 250  
         elif goal == 'weight_gain':
             if timeline == 'short_term':
-                calories = base_calories + 500  # 1lb/week gain
+                calories = base_calories + 500  
             elif timeline == 'mid_term':
-                calories = base_calories + 350  # 0.7lb/week gain
+                calories = base_calories + 350  
             else:
-                calories = base_calories + 250  # 0.5lb/week gain
+                calories = base_calories + 250  
         else:
-            calories = base_calories  # Maintain weight
+            calories = base_calories  
         
         return round(calories)
     
     def calculate_macronutrients(self, daily_calories, goal):
         """Calculate macronutrient distribution"""
         if goal == 'weight_loss':
-            # Higher protein for muscle preservation
             protein_percent = 0.30
             fat_percent = 0.25
             carb_percent = 0.45
         elif goal == 'weight_gain':
-            # Balanced for muscle gain
+            
             protein_percent = 0.25
             fat_percent = 0.30
             carb_percent = 0.45
         else:
-            # Maintenance
+            
             protein_percent = 0.25
             fat_percent = 0.25
             carb_percent = 0.50
         
-        # Calculate grams (4 cal/g for protein & carbs, 9 cal/g for fat)
+        
         protein_grams = round((daily_calories * protein_percent) / 4)
         fat_grams = round((daily_calories * fat_percent) / 9)
         carb_grams = round((daily_calories * carb_percent) / 4)
@@ -135,31 +130,31 @@ class NutritionCalculator:
     
     def calculate_daily_vitamins(self, age, gender, goal):
         """Calculate daily vitamin requirements"""
-        # Base vitamin requirements (RDA values)
+        
         vitamins = {
-            'A': 900 if gender == 'male' else 700,  # mcg RAE
-            'B1': 1.2 if gender == 'male' else 1.1,  # mg thiamine
-            'B2': 1.3 if gender == 'male' else 1.1,  # mg riboflavin
-            'B3': 16 if gender == 'male' else 14,   # mg niacin
-            'B6': 1.3 if age < 50 else (1.7 if gender == 'male' else 1.5),  # mg
-            'B12': 2.4,  # mcg
-            'C': 90 if gender == 'male' else 75,    # mg ascorbic acid
-            'D': 15 if age < 70 else 20,            # mcg
-            'E': 15,     # mg alpha-tocopherol
-            'K': 120 if gender == 'male' else 90,   # mcg
-            'folate': 400,  # mcg DFE
-            'biotin': 30,   # mcg
-            'pantothenic_acid': 5  # mg
+            'A': 900 if gender == 'male' else 700,  
+            'B1': 1.2 if gender == 'male' else 1.1,  
+            'B2': 1.3 if gender == 'male' else 1.1,  
+            'B3': 16 if gender == 'male' else 14,   
+            'B6': 1.3 if age < 50 else (1.7 if gender == 'male' else 1.5),  
+            'B12': 2.4, 
+            'C': 90 if gender == 'male' else 75,   
+            'D': 15 if age < 70 else 20,           
+            'E': 15,     
+            'K': 120 if gender == 'male' else 90,  
+            'folate': 400,  
+            'biotin': 30,   
+            'pantothenic_acid': 5  
         }
         
-        # Adjust for goals
+       
         if goal == 'weight_gain':
-            # Slightly increase B vitamins for energy metabolism
+           
             for vitamin in ['B1', 'B2', 'B3', 'B6']:
                 vitamins[vitamin] *= 1.15
-            vitamins['C'] *= 1.2  # For recovery
+            vitamins['C'] *= 1.2 
         elif goal == 'weight_loss':
-            # Increase antioxidants
+            
             vitamins['C'] *= 1.1
             vitamins['E'] *= 1.1
         
@@ -167,31 +162,31 @@ class NutritionCalculator:
     
     def calculate_daily_minerals(self, age, gender, goal):
         """Calculate daily mineral requirements"""
-        # Base mineral requirements
+        
         minerals = {
-            'calcium': 1000 if age < 50 else 1200,  # mg
-            'iron': self._get_iron_requirement(age, gender),  # mg
-            'magnesium': 400 if gender == 'male' else 310,   # mg
-            'zinc': 11 if gender == 'male' else 8,           # mg
-            'potassium': 3500,    # mg
-            'phosphorus': 700,    # mg
-            'sodium': 1500,       # mg (AI - adequate intake)
-            'selenium': 55,       # mcg
-            'copper': 0.9,        # mg
-            'manganese': 2.3 if gender == 'male' else 1.8,  # mg
-            'chromium': 35 if gender == 'male' else 25,     # mcg
-            'molybdenum': 45,     # mcg
-            'iodine': 150         # mcg
+            'calcium': 1000 if age < 50 else 1200, 
+            'iron': self._get_iron_requirement(age, gender),  
+            'magnesium': 400 if gender == 'male' else 310,   
+            'zinc': 11 if gender == 'male' else 8,           
+            'potassium': 3500,    
+            'phosphorus': 700,    
+            'sodium': 1500,       
+            'selenium': 55,       
+            'copper': 0.9,        
+            'manganese': 2.3 if gender == 'male' else 1.8,  
+            'chromium': 35 if gender == 'male' else 25,     #
+            'molybdenum': 45,     
+            'iodine': 150         
         }
         
-        # Adjust for goals
+
         if goal == 'weight_gain':
-            # Increase minerals for muscle building
+            
             minerals['magnesium'] *= 1.1
             minerals['zinc'] *= 1.15
             minerals['phosphorus'] *= 1.1
         elif goal == 'weight_loss':
-            # Maintain higher calcium and magnesium
+
             minerals['calcium'] *= 1.05
             minerals['magnesium'] *= 1.05
         
@@ -200,32 +195,30 @@ class NutritionCalculator:
     def _get_iron_requirement(self, age, gender):
         """Calculate iron requirement based on age and gender"""
         if gender == 'male':
-            return 8  # mg
-        else:
+            return 8  
             if age < 50:
-                return 18  # mg (premenopausal women)
+                return 18  
             else:
-                return 8   # mg (postmenopausal women)
+                return 8   
     
     def calculate_fiber_requirement(self, age, gender, daily_calories):
         """Calculate daily fiber requirement"""
         if gender == 'male':
             if age < 50:
-                return 38  # g
+                return 38  
             else:
-                return 30  # g
+                return 30  
         else:
             if age < 50:
-                return 25  # g
+                return 25
             else:
-                return 21  # g
+                return 21  
     
     def calculate_water_requirement(self, weight, activity_level='moderate'):
         """Calculate daily water requirement"""
-        # Base: 35ml per kg body weight
-        base_water = weight * 35  # ml
         
-        # Activity adjustments
+        base_water = weight * 35  
+    
         activity_multipliers = {
             'sedentary': 1.0,
             'light': 1.1,
@@ -235,7 +228,7 @@ class NutritionCalculator:
         }
         
         total_water = base_water * activity_multipliers.get(activity_level, 1.2)
-        return round(total_water / 1000, 1)  # Convert to liters
+        return round(total_water / 1000, 1) 
     
     def get_nutrition_summary(self, weight, height, age, gender, goal, timeline):
         """Get basic nutrition summary (for backward compatibility)"""
@@ -254,16 +247,16 @@ class NutritionCalculator:
     
     def get_enhanced_nutrition_summary(self, weight, height, age, gender, goal, timeline):
         """Get comprehensive nutrition summary with vitamins and minerals"""
-        # Get basic summary
+        
         basic_summary = self.get_nutrition_summary(weight, height, age, gender, goal, timeline)
         
-        # Add enhanced data
+        
         vitamins = self.calculate_daily_vitamins(age, gender, goal)
         minerals = self.calculate_daily_minerals(age, gender, goal)
         fiber = self.calculate_fiber_requirement(age, gender, basic_summary['daily_calories'])
         water = self.calculate_water_requirement(weight)
         
-        # Create enhanced summary
+        
         enhanced_summary = basic_summary.copy()
         enhanced_summary.update({
             'vitamins': vitamins,
@@ -284,25 +277,25 @@ class NutritionCalculator:
     def get_nutrition_density_targets(self):
         """Get nutrition density targets per 1000 calories"""
         return {
-            'protein_per_1000_cal': 50,      # g
-            'fiber_per_1000_cal': 14,        # g
-            'vitamin_c_per_1000_cal': 45,    # mg
-            'calcium_per_1000_cal': 500,     # mg
-            'iron_per_1000_cal': 9,          # mg
-            'folate_per_1000_cal': 200,      # mcg
-            'magnesium_per_1000_cal': 200,   # mg
-            'potassium_per_1000_cal': 1750   # mg
+            'protein_per_1000_cal': 50,      
+            'fiber_per_1000_cal': 14,       
+            'vitamin_c_per_1000_cal': 45,   
+            'calcium_per_1000_cal': 500,     
+            'iron_per_1000_cal': 9,          
+            'folate_per_1000_cal': 200,      
+            'magnesium_per_1000_cal': 200,   
+            'potassium_per_1000_cal': 1750   
         }
     
     def calculate_health_metrics(self, weight, height, age, gender):
         """Calculate additional health metrics"""
         height_m = height / 100
         
-        # Ideal weight range (BMI 18.5-24.9)
+        
         ideal_weight_min = round(18.5 * (height_m ** 2), 1)
         ideal_weight_max = round(24.9 * (height_m ** 2), 1)
         
-        # Body fat percentage estimates (rough)
+      
         if gender == 'male':
             body_fat_estimate = (1.20 * self.calculate_bmi(weight, height)) + (0.23 * age) - 16.2
         else:
@@ -349,10 +342,10 @@ class NutritionCalculator:
             if item_name in self.nutrition_data:
                 item_data = self.nutrition_data[item_name]
                 
-                # Scale nutrition by quantity (assuming base is per 100g)
+                
                 scale_factor = quantity / 100
                 
-                # Macros
+    
                 total_nutrition['calories'] += item_data['macros'].get('protein', 0) * 4 * scale_factor
                 total_nutrition['calories'] += item_data['macros'].get('carbs', 0) * 4 * scale_factor
                 total_nutrition['calories'] += item_data['macros'].get('fats', 0) * 9 * scale_factor
@@ -361,13 +354,13 @@ class NutritionCalculator:
                 total_nutrition['carbs'] += item_data['macros'].get('carbs', 0) * scale_factor
                 total_nutrition['fats'] += item_data['macros'].get('fats', 0) * scale_factor
                 
-                # Vitamins
+            
                 for vitamin, amount in item_data.get('vitamins', {}).items():
                     if vitamin not in total_nutrition['vitamins']:
                         total_nutrition['vitamins'][vitamin] = 0
                     total_nutrition['vitamins'][vitamin] += amount * scale_factor
                 
-                # Minerals
+    
                 for mineral, amount in item_data.get('minerals', {}).items():
                     if mineral not in total_nutrition['minerals']:
                         total_nutrition['minerals'][mineral] = 0
@@ -379,24 +372,23 @@ class NutritionCalculator:
         """Calculate how well actual nutrition meets targets"""
         scores = {}
         
-        # Macro adequacy
+    
         for macro in ['protein', 'carbs', 'fat']:
             if macro in target_nutrition['macronutrients'] and macro in actual_nutrition:
                 target = target_nutrition['macronutrients'][macro]
                 actual = actual_nutrition[macro]
                 scores[f'{macro}_adequacy'] = min(100, (actual / target) * 100) if target > 0 else 0
         
-        # Vitamin adequacy
         for vitamin, target_amount in target_nutrition.get('vitamins', {}).items():
             actual_amount = actual_nutrition.get('vitamins', {}).get(vitamin, 0)
             scores[f'vitamin_{vitamin}_adequacy'] = min(100, (actual_amount / target_amount) * 100) if target_amount > 0 else 0
         
-        # Mineral adequacy
+
         for mineral, target_amount in target_nutrition.get('minerals', {}).items():
             actual_amount = actual_nutrition.get('minerals', {}).get(mineral, 0)
             scores[f'mineral_{mineral}_adequacy'] = min(100, (actual_amount / target_amount) * 100) if target_amount > 0 else 0
         
-        # Overall score
+    
         all_scores = list(scores.values())
         scores['overall_adequacy'] = sum(all_scores) / len(all_scores) if all_scores else 0
         
