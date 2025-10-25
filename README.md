@@ -1,20 +1,20 @@
 🥗 AI-Based Diet Recommendation System (Knowledge-Based Approach)
 
-Project Overview
+📘 Project Overview
 The Diet Recommendation System is a knowledge-based AI application designed to generate personalized diet plans based on user preferences, health conditions, and lifestyle goals.  
 It uses a logic-based approach to analyze user inputs and deliver customized weekly diet plans along with nutrition values, recipes, grocery lists, and storage details.
 
 
-Objective
+🎯 Objective
 To recommend a personalized, healthy, and seasonal diet plan that combines both traditional and modern nutrition principles while considering individual preferences, health conditions, and goals.
 
 
-System Type
+🧠 System Type
 Knowledge-Based System (Logic-Based Reasoning)
 The system interacts with users through a series of structured questions and logically determines the most suitable diet plan based on predefined rules and knowledge representation.
 
 
-Steps in User Interaction (12-Step Process)
+🪜 Steps in User Interaction (12-Step Process)
 
 Step 1️⃣: Preferred Food Style
 - Traditional – Classic regional foods with time-tested recipes  
@@ -69,18 +69,18 @@ Supported conditions include:
 
 (Users can enter multiple conditions, e.g., `1,2` or `none`)
 
-Step 11️⃣: Budget Preference
+Step 1️⃣1️⃣: Budget Preference
 - Low Cost – Local, affordable ingredients  
 - Medium Cost – Balanced, good variety  
 - High Cost – Premium and exotic options  
 
-Step 12️⃣: Preferred Timeline
+Step 1️⃣2️⃣: Preferred Timeline
 - Short-term (1–2 months)  
 - Mid-term (3–6 months)  
 - Long-term (6+ months)
 
 
-System Output
+🧩 System Output
 
 After collecting user input, the system generates:
 
@@ -92,13 +92,13 @@ After collecting user input, the system generates:
 - Voice Input Support for accessibility  
 
 
- System Focus Areas
+🌿 System Focus Areas
 - Traditional + Modern Fusion Diets
 - Seasonal Food Recommendations
 - Balanced Nutrition & Health Goals 
 - Smart Food Selection with Logic Rules 
 
- Technology Stack
+⚙️ Technology Stack
 | Component | Technology |
 |------------|-------------|
 | Frontend | HTML, CSS, JavaScript |
@@ -109,14 +109,14 @@ After collecting user input, the system generates:
 | Deployment | Web-based Interface |
 
 
-Future Enhancements
+🚀 Future Enhancements
 - Integration with fitness trackers and wearable devices ⌚  
 - Dynamic grocery delivery suggestions 🛒  
 - Personalized notifications and reminders 📱  
 
 
 
-Developed By
+👨‍💻 Developed By
 Anil Kumar
 Department of Computer Science and Engineering  
 QISCET, Ongole, Andhra Pradesh, India  
